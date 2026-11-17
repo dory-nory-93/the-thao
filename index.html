@@ -1,72 +1,689 @@
-YPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE THAO 24H</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f2f2f2}
-header{background:#e11d2e;color:white;text-align:center;padding:20px}
-header h1{font-size:28px}
-header p{font-size:14px;opacity:0.9;margin-top:5px}
-.tabs{display:flex;gap:8px;justify-content:center;padding:12px;background:white;flex-wrap:wrap}
-.tabs button{border:none;background:#eee;padding:8px 14px;border-radius:20px;font-size:14px;font-weight:bold;cursor:pointer}
-.tabs button.active{background:#e11d2e;color:white}
-.list{max-width:800px;margin:16px auto;padding:0 12px;display:flex;flex-direction:column;gap:14px}
-.card{display:flex;gap:12px;background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);text-decoration:none;color:#000}
-.card img{width:180px;height:120px;object-fit:cover;background:#ddd}
-.card div{padding:12px 10px 12px 0}
-.tag{color:#e11d2e;font-size:12px;font-weight:bold}
-.card h3{font-size:17px;line-height:1.4;margin:6px 0}
-.card p{font-size:13px;color:#666;line-height:1.5}
-.time{font-size:12px;color:#999;margin-top:8px}
-@media(max-width:600px){.card img{width:120px;height:90px}}
-</style>
-</head>
-<body>
-<header><h1>⚽ THE THAO 24H</h1><p>Bóng Đá • Thể Thao • Tin Tức • Tài Chính</p><p id="update" style="font-size:12px;margin-top:6px">Đang thử tải tin mới nhất...</p></header>
-<div class="tabs">
-<button class="active" onclick="loc('all',this)">🏠 Tất Cả</button>
-<button onclick="loc('BÓNG ĐÁ',this)">⚽ Bóng Đá</button>
-<button onclick="loc('THỂ THAO',this)">🏆 Thể Thao</button>
-<button onclick="loc('KINH DOANH',this)">💰 Tài Chính</button>
-</div>
-<div class="list" id="list"></div>
-<script>
-let allNews=[
-{cat:'BÓNG ĐÁ',title:'Man City thắng kịch tính 3-2 ở phút bù giờ, giữ vững ngôi đầu',desc:'Trận đấu rượt đuổi tỷ số hấp dẫn nhất vòng đấu, Haaland lập cú đúp quyết định.',link:'https://www.google.com/search?q=Man+City+thắng+3-2',img:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600',date:'Tin nổi bật'},
-{cat:'BÓNG ĐÁ',title:'Real Madrid công bố bản hợp đồng bom tấn mùa hè',desc:'Đội bóng Hoàng gia chính thức chiêu mộ ngôi sao trẻ được săn đón nhất châu Âu.',link:'https://www.google.com/search?q=Real+Madrid+hợp+đồng+bom+tấn',img:'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600',date:'Tin nổi bật'},
-{cat:'THỂ THAO',title:'Việt Nam giành HCV SEA Games sau 10 năm chờ đợi',desc:'Vận động viên Việt Nam phá kỷ lục quốc gia, mang về tấm huy chương vàng quý giá.',link:'https://www.google.com/search?q=Việt+Nam+giành+HCV+SEA+Games',img:'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600',date:'Tin nổi bật'},
-{cat:'KINH DOANH',title:'Giá vàng hôm nay tăng mạnh, lập đỉnh mới',desc:'Giá vàng trong nước tăng 500.000 đồng/lượng, nhà đầu tư đổ xô đi mua.',link:'https://www.google.com/search?q=Giá+vàng+hôm+nay',img:'https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600',date:'Tin nổi bật'},
-{cat:'BÓNG ĐÁ',title:'Đội tuyển Việt Nam thắng 2-0, vào bán kết AFF Cup',desc:'Hai bàn thắng đẹp mắt giúp Việt Nam giành vé sớm vào vòng trong.',link:'https://www.google.com/search?q=Đội+tuyển+Việt+Nam+vào+bán+kết',img:'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600',date:'Tin nổi bật'},
-{cat:'KINH DOANH',title:'Chứng khoán tăng điểm mạnh, VN-Index vượt 1.300',desc:'Thị trường khởi sắc nhờ nhóm cổ phiếu ngân hàng và bất động sản dẫn dắt.',link:'https://www.google.com/search?q=VN-Index+vượt+1300',img:'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600',date:'Tin nổi bật'}
+thethao-news/
+│
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+│
+├── public/
+│   └── data/
+│       └── news.json
+│
+├── scripts/
+│   └── update-news.mjs
+│
+├── .github/
+│   └── workflows/
+│       └── update-news.yml
+│
+├── package.json
+└── next.config.ts
+
+{
+  "name": "thethao-news",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "update-news": "node scripts/update-news.mjs"
+  },
+  "dependencies": {
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "rss-parser": "^3.13.0",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.0",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0"
+  }
+}
+
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: "export",
+  images: {
+    unoptimized: true
+  }
+};
+
+export default nextConfig;
+
+import Parser from "rss-parser";
+import fs from "node:fs/promises";
+import path from "node:path";
+
+const parser = new Parser({
+  timeout: 15000,
+  headers: {
+    "User-Agent": "TheThaoNews/1.0"
+  }
+});
+
+const sources = [
+  {
+    name: "VnExpress",
+    category: "Bóng đá Việt Nam",
+    url: "https://vnexpress.net/rss/the-thao.rss"
+  },
+  {
+    name: "VnExpress",
+    category: "Tin trong nước",
+    url: "https://vnexpress.net/rss/thoi-su.rss"
+  },
+  {
+    name: "VnExpress",
+    category: "Tài chính",
+    url: "https://vnexpress.net/rss/kinh-doanh.rss"
+  },
+  {
+    name: "BBC",
+    category: "Tin thế giới",
+    url: "https://feeds.bbci.co.uk/news/world/rss.xml"
+  },
+  {
+    name: "BBC Sport",
+    category: "Thể thao thế giới",
+    url: "https://feeds.bbci.co.uk/sport/rss.xml"
+  }
 ];
-function render(list){
-document.getElementById('list').innerHTML=list.map(n=>`<a class="card" data-cat="${n.cat}" href="${n.link}" target="_blank"><img src="${n.img}" onerror="this.src='https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600'"><div><div class="tag">${n.cat}</div><h3>${n.title}</h3><p>${n.desc}</p><div class="time">${n.date} • Bấm để đọc→</div></div></a>`).join('');
+
+const allNews = [];
+
+for (const source of sources) {
+  try {
+    console.log("Đang cập nhật:", source.name, source.category);
+
+    const feed = await parser.parseURL(source.url);
+
+    for (const item of feed.items || []) {
+      if (!item.title || !item.link) continue;
+
+      allNews.push({
+        id: item.guid || item.link,
+        title: item.title.trim(),
+        description: (item.contentSnippet || item.summary || "")
+          .replace(/<[^>]*>/g, "")
+          .slice(0, 350),
+        link: item.link,
+        image: item.enclosure?.url || "",
+        category: source.category,
+        source: source.name,
+        publishedAt: item.isoDate || new Date().toISOString()
+      });
+    }
+  } catch (error) {
+    console.error(
+      "Không lấy được nguồn:",
+      source.url,
+      error.message
+    );
+  }
 }
-function loc(cat,btn){
-document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-render(cat==='all'?allNews:allNews.filter(n=>n.cat===cat));
+
+// Loại bỏ tin trùng lặp
+const uniqueNews = [
+  ...new Map(
+    allNews.map(item => [item.link, item])
+  ).values()
+];
+
+// Tin mới nhất lên trước
+uniqueNews.sort(
+  (a, b) =>
+    new Date(b.publishedAt) - new Date(a.publishedAt)
+);
+
+const output = {
+  updatedAt: new Date().toISOString(),
+  total: uniqueNews.length,
+  news: uniqueNews
+};
+
+const outputPath = path.join(
+  process.cwd(),
+  "public",
+  "data",
+  "news.json"
+);
+
+await fs.mkdir(path.dirname(outputPath), {
+  recursive: true
+});
+
+await fs.writeFile(
+  outputPath,
+  JSON.stringify(output, null, 2),
+  "utf8"
+);
+
+console.log("Đã cập nhật:", uniqueNews.length, "tin tức.");
+
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  Search, Menu, Clock, ExternalLink,
+  TrendingUp, Trophy, Globe, Newspaper
+} from "lucide-react";
+
+type News = {
+  id: string;
+  title: string;
+  description: string;
+  link: string;
+  image: string;
+  category: string;
+  source: string;
+  publishedAt: string;
+};
+
+const categories = [
+  "Tất cả",
+  "Thể thao trong nước",
+  "Thể thao thế giới",
+  "Bóng đá Việt Nam",
+  "Bóng đá thế giới",
+  "Tin trong nước",
+  "Tin thế giới",
+  "Tài chính",
+  "Chứng khoán"
+];
+
+export default function Home() {
+  const [news, setNews] = useState<News[]>([]);
+  const [category, setCategory] = useState("Tất cả");
+  const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/data/news.json")
+      .then(res => res.json())
+      .then(data => setNews(data.news || []))
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const filteredNews = news.filter(item => {
+    const matchCategory =
+      category === "Tất cả" ||
+      item.category === category;
+
+    const matchSearch =
+      item.title.toLowerCase().includes(
+        search.toLowerCase()
+      );
+
+    return matchCategory && matchSearch;
+  });
+
+  const featured = filteredNews[0];
+
+  return (
+    <main>
+      <header className="header">
+        <div className="container topbar">
+          <a className="logo" href="/">
+            <span>SPORTS</span>NEWS
+          </a>
+
+          <div className="search">
+            <Search size={18} />
+            <input
+              placeholder="Tìm kiếm tin tức..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+          </div>
+
+          <span className="live">● TIN MỚI</span>
+        </div>
+
+        <nav className="navigation">
+          <div className="container nav-list">
+            {categories.map(item => (
+              <button
+                key={item}
+                onClick={() => setCategory(item)}
+                className={category === item ? "active" : ""}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
+        </nav>
+      </header>
+
+      <div className="container">
+        <section className="hero">
+          <div>
+            <p className="eyebrow">
+              CẬP NHẬT TIN TỨC 24/7
+            </p>
+            <h1>
+              NHỊP ĐẬP THỂ THAO
+              <br />
+              VÀ THỜI SỰ TOÀN CẦU
+            </h1>
+            <p>
+              Tin tức mới nhất về thể thao, bóng đá,
+              kinh tế và thị trường chứng khoán.
+            </p>
+          </div>
+          <Trophy size={100} />
+        </section>
+
+        <section className="section">
+          <h2>🔥 TIN NỔI BẬT</h2>
+
+          {loading ? (
+            <p>Đang tải tin tức...</p>
+          ) : featured ? (
+            <article className="featured">
+              {featured.image && (
+                <img
+                  src={featured.image}
+                  alt={featured.title}
+                />
+              )}
+              <div>
+                <span className="tag">
+                  {featured.category}
+                </span>
+                <h2>{featured.title}</h2>
+                <p>{featured.description}</p>
+                <a
+                  href={featured.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Đọc bài gốc <ExternalLink size={15} />
+                </a>
+              </div>
+            </article>
+          ) : (
+            <p>Chưa có tin phù hợp.</p>
+          )}
+        </section>
+
+        <section className="section">
+          <div className="section-heading">
+            <h2>📰 TIN TỨC MỚI NHẤT</h2>
+            <span>{filteredNews.length} bài viết</span>
+          </div>
+
+          <div className="news-grid">
+            {filteredNews.map(item => (
+              <article className="news-card" key={item.id}>
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                )}
+
+                <div className="news-content">
+                  <span className="tag">
+                    {item.category}
+                  </span>
+
+                  <h3>{item.title}</h3>
+
+                  <p>{item.description}</p>
+
+                  <div className="news-meta">
+                    <span>{item.source}</span>
+                    <span>
+                      <Clock size={13} />
+                      {new Date(item.publishedAt)
+                        .toLocaleDateString("vi-VN")}
+                    </span>
+                  </div>
+
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Xem tin gốc →
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          {!loading && filteredNews.length === 0 && (
+            <p>Không tìm thấy tin tức.</p>
+          )}
+        </section>
+      </div>
+
+      <footer>
+        <div className="container">
+          <h2>SPORTS NEWS</h2>
+          <p>
+            Trang thông tin tổng hợp thể thao,
+            bóng đá, thời sự và tài chính.
+          </p>
+          <p>
+            Nội dung thuộc các nguồn báo chí gốc.
+            Vui lòng truy cập liên kết để đọc bài đầy đủ.
+          </p>
+          © 2026 SPORTS NEWS
+        </div>
+      </footer>
+    </main>
+  );
 }
-// 1. Hiện tin cũ ngay, không đợi
-render(allNews);
-// 2. Thử tải tin mới ở phía sau, được thì thay, không được thì giữ tin cũ
-async function loadNew(){
-try{
-const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://vnexpress.net/rss/the-thao.rss'));
-const d=await r.json();
-if(!d.items||d.items.length===0) return;
-let fresh=d.items.slice(0,10).map(it=>({cat:'THỂ THAO',title:it.title,desc:(it.description'').replace(/<[^>]*>/g,'').slice(0,140)+'...',link:it.link,img:it.thumbnail'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600',date:new Date(it.pubDate).toLocaleString('vi-VN')}));
-allNews=fresh;
-document.getElementById('update').textContent='Đã cập nhật tin mới lúc: '+new Date().toLocaleString('vi-VN');
-render(allNews);
-}catch(e){
-document.getElementById('update').textContent='Đang hiện tin nổi bật - Bấm F5 để thử tải tin mới';
+
+* {
+  box-sizing: border-box;
 }
+
+body {
+  margin: 0;
+  background: #f4f6f9;
+  color: #172033;
+  font-family: Arial, sans-serif;
 }
-loadNew();
-</script>
-</body>
-</html>
+
+.container {
+  width: min(1200px, 94%);
+  margin: auto;
+}
+
+.header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.topbar {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.logo {
+  color: #111827;
+  font-size: 26px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.logo span {
+  color: #e32935;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: #f2f4f7;
+  border-radius: 8px;
+  width: 340px;
+}
+
+.search input {
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.live {
+  color: #e32935;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.navigation {
+  border-top: 1px solid #eee;
+}
+
+.nav-list {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+}
+
+.nav-list button {
+  white-space: nowrap;
+  padding: 15px 12px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.nav-list button:hover,
+.nav-list button.active {
+  color: #e32935;
+}
+
+.hero {
+  margin-top: 28px;
+  background: #101c36;
+  color: white;
+  padding: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero h1 {
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.2;
+}
+
+.eyebrow {
+  color: #ff6570;
+  font-weight: bold;
+}
+
+.section {
+  margin: 38px 0;
+}
+
+.section h2 {
+  font-size: 22px;
+}
+
+.featured {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.featured img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.featured > div {
+  padding: 25px;
+}
+
+.tag {
+  display: inline-block;
+  color: #e32935;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.featured a,
+.news-card a {
+  color: #df2634;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.news-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px #00000008;
+}
+
+.news-card > img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 18px;
+}
+
+.news-content h3 {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.news-content p {
+  color: #687386;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.news-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: #8992a2;
+  font-size: 12px;
+  margin: 15px 0;
+}
+
+.news-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+footer {
+  margin-top: 60px;
+  padding: 40px 0;
+  background: #101c36;
+  color: white;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    flex-wrap: wrap;
+    padding: 15px 0;
+  }
+
+  .search {
+    order: 3;
+    width: 100%;
+  }
+
+  .hero {
+    padding: 25px;
+  }
+
+  .hero svg {
+    display: none;
+  }
+
+  .featured {
+    grid-template-columns: 1fr;
+  }
+
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "SPORTS NEWS - Tin tức thể thao và thời sự",
+  description:
+    "Tin tức thể thao, bóng đá Việt Nam, bóng đá thế giới, thời sự, tài chính và chứng khoán."
+};
+
+export default function RootLayout({
+  children
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="vi">
+      <body>{children}</body>
+    </html>
+  );
+}
+
+{
+  "updatedAt": null,
+  "total": 0,
+  "news": []
+}
+
+name: Automatic News Update
+
+on:
+  schedule:
+    - cron: "0 23 * * *"
+    - cron: "0 5 * * *"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Update news
+        run: npm run update-news
+
+      - name: Save updated news
+        run: |
+          git config user.name "News Bot"
+          git config user.email "news-bot@users.noreply.github.com"
+          git add public/data/news.json
+          git diff --cached --quiet || git commit -m "Automatic news update"
+          git push
