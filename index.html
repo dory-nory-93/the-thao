@@ -11,11 +11,12 @@ header{background:#e11d2e;color:white;text-align:center;padding:20px}
 header h1{font-size:28px}
 header p{font-size:14px;opacity:0.9;margin-top:5px}
 .tabs{display:flex;gap:8px;justify-content:center;padding:12px;background:white;flex-wrap:wrap}
-.tabs span{background:#eee;padding:8px 14px;border-radius:20px;font-size:14px;font-weight:bold}
-.tabs span.active{background:#e11d2e;color:white}
+.tabs button{border:none;background:#eee;padding:8px 14px;border-radius:20px;font-size:14px;font-weight:bold;cursor:pointer}
+.tabs button.active{background:#e11d2e;color:white}
 .list{max-width:800px;margin:16px auto;padding:0 12px;display:flex;flex-direction:column;gap:14px}
-.card{display:flex;gap:12px;background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
-.card img{width:180px;height:120px;object-fit:cover}
+.card{display:flex;gap:12px;background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);text-decoration:none;color:#000;cursor:pointer}
+.card:active{transform:scale(0.98)}
+.card img{width:180px;height:120px;object-fit:cover;background:#ddd}
 .card div{padding:12px 10px 12px 0}
 .tag{color:#e11d2e;font-size:12px;font-weight:bold}
 .card h3{font-size:17px;line-height:1.4;margin:6px 0}
@@ -25,32 +26,43 @@ header p{font-size:14px;opacity:0.9;margin-top:5px}
 </style>
 </head>
 <body>
-<header>
-<h1>⚽ THE THAO 24H</h1>
-<p>Bóng Đá • Thể Thao • Tin Tức • Tài Chính - Cập Nhật 24/7</p>
-</header>
-<div class="tabs"><span class="active">🏠 Tất Cả</span><span>🏆 Thể Thao</span><span>⚽ Bóng Đá</span><span>📰 Tin Tức</span><span>💰 Tài Chính</span></div>
+<header><h1>⚽ THE THAO 24H</h1><p>Bóng Đá • Thể Thao • Tin Tức • Tài Chính - Cập Nhật 24/7</p></header>
+<div class="tabs">
+<button class="active" onclick="loc('all',this)">🏠 Tất Cả</button>
+<button onclick="loc('BÓNG ĐÁ',this)">⚽ Bóng Đá</button>
+<button onclick="loc('THỂ THAO',this)">🏆 Thể Thao</button>
+<button onclick="loc('TIN TỨC',this)">📰 Tin Tức</button>
+<button onclick="loc('TÀI CHÍNH',this)">💰 Tài Chính</button>
+</div>
+<div class="list" id="list">
 
-<div class="list">
+<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Man+City+thắng+3-2" target="_blank"><img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Man City thắng kịch tính 3-2 ở phút bù giờ, giữ vững ngôi đầu</h3><p>Trận đấu rượt đuổi tỷ số hấp dẫn nhất vòng đấu, Haaland lập cú đúp quyết định.</p><div class="time">2 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
-<div class="card"><img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Man City thắng kịch tính 3-2 ở phút bù giờ, giữ vững ngôi đầu</h3><p>Trận đấu rượt đuổi tỷ số hấp dẫn nhất vòng đấu, Haaland lập cú đúp quyết định.</p><div class="time">2 giờ trước • 1.2k lượt xem</div></div></div>
+<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Real+Madrid+hợp+đồng+bom+tấn" target="_blank"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Real Madrid công bố bản hợp đồng bom tấn mùa hè</h3><p>Đội bóng Hoàng gia chính thức chiêu mộ ngôi sao trẻ được săn đón nhất châu Âu.</p><div class="time">3 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
-<div class="card"><img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Real Madrid công bố bản hợp đồng bom tấn mùa hè</h3><p>Đội bóng Hoàng gia chính thức chiêu mộ ngôi sao trẻ được săn đón nhất châu Âu.</p><div class="time">3 giờ trước • 980 lượt xem</div></div></div>
+<a class="card" data-cat="THỂ THAO" href="https://www.google.com/search?q=Việt+Nam+giành+HCV+SEA+Games" target="_blank"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600"><div><div class="tag">THỂ THAO</div><h3>Việt Nam giành HCV SEA Games sau 10 năm chờ đợi</h3><p>Vận động viên Việt Nam phá kỷ lục quốc gia, mang về tấm huy chương vàng quý giá.</p><div class="time">5 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
-<div class="card"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600"><div><div class="tag">THỂ THAO</div><h3>Việt Nam giành HCV SEA Games sau 10 năm chờ đợi</h3><p>Vận động viên Việt Nam phá kỷ lục quốc gia, mang về tấm huy chương vàng quý giá.</p><div class="time">5 giờ trước • 2.1k lượt xem</div></div></div>
+<a class="card" data-cat="TIN TỨC" href="https://www.google.com/search?q=Giá+vàng+hôm+nay" target="_blank"><img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600"><div><div class="tag">TIN TỨC</div><h3>Giá vàng hôm nay tăng mạnh, lập đỉnh mới</h3><p>Giá vàng trong nước tăng 500.000 đồng/lượng, nhà đầu tư đổ xô đi mua.</p><div class="time">1 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
-<div class="card"><img src="https://images.unsplash.com/photo-1541252260730-0412e8e2108e?w=600"><div><div class="tag">TIN TỨC</div><h3>Giá vàng hôm nay tăng mạnh, lập đỉnh mới</h3><p>Giá vàng trong nước tăng 500.000 đồng/lượng, nhà đầu tư đổ xô đi mua.</p><div class="time">1 giờ trước • 3.4k lượt xem</div></div></div>
+<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=MU+thua+sân+nhà" target="_blank"><img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>MU thua sốc trên sân nhà, HLV lên tiếng xin lỗi fan</h3><p>Quỷ đỏ nhận thất bại bất ngờ, áp lực lên ban huấn luyện ngày càng lớn.</p><div class="time">4 giờ trước • Bấm để đọc chi tiết →</div></div></a><a class="card" data-cat="THỂ THAO" href="https://www.google.com/search?q=Marathon+Hà+Nội" target="_blank"><img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600"><div><div class="tag">THỂ THAO</div><h3>Marathon Hà Nội thu hút 10.000 vận động viên</h3><p>Giải chạy lớn nhất năm diễn ra sôi động với nhiều kỷ lục mới được thiết lập.</p><div class="time">6 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
-<div class="card"><img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>MU thua sốc trên sân nhà, HLV lên tiếng xin lỗi fan</h3><p>Quỷ đỏ nhận thất bại bất ngờ, áp lực lên ban huấn luyện ngày càng lớn.</p><div class="time">4 giờ trước • 1.8k lượt xem</div></div></div>
+<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Đội+tuyển+Việt+Nam+vào+bán+kết+AFF+Cup" target="_blank"><img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Đội tuyển Việt Nam thắng 2-0, vào bán kết AFF Cup</h3><p>Hai bàn thắng đẹp mắt giúp Việt Nam giành vé sớm vào vòng trong.</p><div class="time">8 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
-<div class="card"><img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600"><div><div class="tag">THỂ THAO</div><h3>Marathon Hà Nội thu hút 10.000 vận động viên</h3><p>Giải chạy lớn nhất năm diễn ra sôi động với nhiều kỷ lục mới được thiết lập.</p><div class="time">6 giờ trước • 750 lượt xem</div></div></div>
+<a class="card" data-cat="TÀI CHÍNH" href="https://www.google.com/search?q=VN-Index+vượt+1300" target="_blank"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600"><div><div class="tag">TÀI CHÍNH</div><h3>Chứng khoán tăng điểm mạnh, VN-Index vượt 1.300</h3><p>Thị trường khởi sắc nhờ nhóm cổ phiếu ngân hàng và bất động sản dẫn dắt.</p><div class="time">2 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
-<div class="card"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Đội tuyển Việt Nam thắng 2-0, vào bán kết AFF Cup</h3><p>Hai bàn thắng đẹp mắt giúp Việt Nam giành vé sớm vào vòng trong.</p><div class="time">8 giờ trước • 4.5k lượt xem</div></div></div><div class="card"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600"><div><div class="tag">TÀI CHÍNH</div><h3>Chứng khoán tăng điểm mạnh, VN-Index vượt 1.300</h3><p>Thị trường khởi sắc nhờ nhóm cổ phiếu ngân hàng và bất động sản dẫn dắt.</p><div class="time">2 giờ trước • 890 lượt xem</div></div></div>
+<a class="card" data-cat="THỂ THAO" href="https://www.google.com/search?q=Cầu+lông+Việt+Nam+giải+thế+giới" target="_blank"><img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=600"><div><div class="tag">THỂ THAO</div><h3>Cầu lông Việt Nam tạo địa chấn ở giải thế giới</h3><p>Tay vợt trẻ Việt Nam đánh bại hạt giống số 1 thế giới sau 3 set kịch tính.</p><div class="time">7 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
-<div class="card"><img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=600"><div><div class="tag">THỂ THAO</div><h3>Cầu lông Việt Nam tạo địa chấn ở giải thế giới</h3><p>Tay vợt trẻ Việt Nam đánh bại hạt giống số 1 thế giới sau 3 set kịch tính.</p><div class="time">7 giờ trước • 620 lượt xem</div></div></div>
-
-<div class="card"><img src="https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Barcelona thắng 4-1, Yamal lập siêu phẩm</h3><p>Ngôi sao 17 tuổi tiếp tục tỏa sáng với pha solo ghi bàn đẹp nhất vòng đấu.</p><div class="time">9 giờ trước • 2.8k lượt xem</div></div></div>
+<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Barcelona+thắng+4-1+Yamal" target="_blank"><img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Barcelona thắng 4-1, Yamal lập siêu phẩm</h3><p>Ngôi sao 17 tuổi tiếp tục tỏa sáng với pha solo ghi bàn đẹp nhất vòng đấu.</p><div class="time">9 giờ trước • Bấm để đọc chi tiết →</div></div></a>
 
 </div>
+<script>
+function loc(cat,btn){
+document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+document.querySelectorAll('.card').forEach(c=>{
+c.style.display=(cat==='all'||c.dataset.cat===cat)?'flex':'none';
+});
+}
+</script>
 </body>
 </html>
