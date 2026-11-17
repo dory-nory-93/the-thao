@@ -1,58 +1,21 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE THAO 24H - Bóng Đá Châu Âu</title>
-<style>
-body{font-family:Arial,sans-serif;background:#f2f2f2;margin:0;padding:0}
-header{background:#d70000;color:white;text-align:center;padding:25px}
-header h1{margin:0;font-size:32px}
-header p{margin:5px 0 0}
-.container{max-width:900px;margin:20px auto;padding:0 15px}
-.card{background:white;border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;gap:15px;padding:15px}
-.card img{width:220px;height:150px;object-fit:cover;border-radius:8px}
-.card h3{margin:0 0 8px;font-size:18px}
-.card h3 a{color:#111;text-decoration:none}
-.card p{color:#555;font-size:14px;line-height:1.5}
-.time{color:#d70000;font-size:12px;font-weight:bold}
-.btn{display:inline-block;margin-top:8px;background:#d70000;color:white;padding:8px 14px;border-radius:20px;text-decoration:none;font-size:13px}
-#loading{text-align:center;padding:40px}
-</style>
-</head>
-<body>
-<header>
-<h1>⚽ THE THAO 24H</h1>
-<p>Tin Bóng Đá Châu Âu - Tự Động Cập Nhật</p>
-<p style="font-size:13px">Nguồn: BBC Sport Football • Cập nhật mỗi khi tải lại trang</p>
-</header>
+await fetchRSS('https://vnexpress.net/rss/the-gioi.rss','tin-tuc','tin-tg','TIN THẾ GIỚI','https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400',['tin-tg']);
+  // TÀI CHÍNH - CHỨNG KHOÁN - MỚI THÊM
+  await fetchRSS('https://vnexpress.net/rss/kinh-doanh.rss','tai-chinh','kinh-doanh','KINH DOANH','https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400',['kinh-doanh']);
+  await fetchRSS('https://vnexpress.net/rss/chung-khoan.rss','tai-chinh','chung-khoan-vn','CHỨNG KHOÁN VN','https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400',['chung-khoan-vn']);
+  await fetchRSS('https://cafef.vn/rss.chn','tai-chinh','chung-khoan-vn','CHỨNG KHOÁN VN','https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400',['chung-khoan-vn']);
+  await fetchRSS('https://vnexpress.net/rss/bat-dong-san.rss','tai-chinh','bat-dong-san','BẤT ĐỘNG SẢN','https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400',['bat-dong-san']);
+  // Chứng khoán thế giới + vàng + crypto lấy từ VnExpress kinh doanh + CafeF
+  await fetchRSS('https://cafef.vn/thi-truong-chung-khoan.rss','tai-chinh','chung-khoan-tg','CK THẾ GIỚI','https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=400',['chung-khoan-tg']);
+  await fetchRSS('https://cafef.vn/tai-chinh-quoc-te.rss','tai-chinh','chung-khoan-tg','TÀI CHÍNH TG','https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=400',['chung-khoan-tg']);
 
-<div class="container">
-<div id="loading">Đang tải tin mới nhất... ⏳</div>
-<div id="news"></div>
-</div>
-
-<script>
-async function loadNews(){
-  try{
-    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/sport/football/rss.xml');
-    const data = await res.json();
-    let html = '';
-    data.items.slice(0,10).forEach(item=>{
-      html += <div class="card">
-        <img src="${item.thumbnail || 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400'}" onerror="this.src='https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400'">
-        <div>
-          <div class="time">${new Date(item.pubDate).toLocaleString('vi-VN')} • CHÂU ÂU</div>
-          <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
-          <p>${item.description.replace(/<[^>]*>/g,'').slice(0,150)}...</p>
-          <a class="btn" href="${item.link}" target="_blank">Đọc Chi Tiết →</a>
-        </div>
-      </div>;
-    });
-    document.getElementById('news').innerHTML = html;
-    document.getElementById('loading').style.display='none';
-  }catch(e){
-    document.getElementById('loading').innerHTML = 'Không tải được tin, bạn thử tải lại trang (F5) nha.';
+  const seen = new Set();
+  allNews = allNews.filter(n=>{ if(seen.has(n.title)) return false; seen.add(n.title); return true; });
+  allNews.sort((a,b)=> new Date(b.date) - new Date(a.date));
+  document.getElementById('loading').style.display='none';
+  render();
+  if(allNews.length===0){
+    document.getElementById('loading').style.display='block';
+    document.getElementById('loading').innerHTML='Không tải được tin, bạn tắt VPN rồi bấm F5 tải lại trang nha.';
   }
 }
 loadNews();
