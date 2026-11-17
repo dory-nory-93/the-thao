@@ -3,63 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Thao - Tin Tuc The Thao Moi Nhat</title>
+<title>THE THAO 24H - Bóng Đá Châu Âu</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f2f2f2;color:#222}
-header{background:#0a8a3a;color:white;padding:20px;text-align:center}
-header h1{font-size:36px}
-header p{margin-top:8px;opacity:.9}
-nav{background:#222;display:flex;justify-content:center;gap:25px;padding:12px}
-nav a{color:white;text-decoration:none;font-weight:bold}
-.hero{background:#111;color:white;padding:50px 20px;text-align:center}
-.hero h2{font-size:32px;color:#ffe600}
-.hero p{margin:15px 0;font-size:18px}
-.hero button{background:#0a8a3a;color:white;border:none;padding:12px 25px;font-size:16px;border-radius:8px;cursor:pointer}
-.container{max-width:1000px;margin:20px auto;padding:0 15px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px}
-.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card img{width:100%;height:180px;object-fit:cover}
-.card div{padding:15px}
-.card h3{margin-bottom:8px}
+body{font-family:Arial,sans-serif;background:#f2f2f2;margin:0;padding:0}
+header{background:#d70000;color:white;text-align:center;padding:25px}
+header h1{margin:0;font-size:32px}
+header p{margin:5px 0 0}
+.container{max-width:900px;margin:20px auto;padding:0 15px}
+.card{background:white;border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,0.1);display:flex;gap:15px;padding:15px}
+.card img{width:220px;height:150px;object-fit:cover;border-radius:8px}
+.card h3{margin:0 0 8px;font-size:18px}
+.card h3 a{color:#111;text-decoration:none}
 .card p{color:#555;font-size:14px;line-height:1.5}
-footer{background:#222;color:white;text-align:center;padding:20px;margin-top:20px}
-@media(max-width:700px){.container{grid-template-columns:1fr}}
+.time{color:#d70000;font-size:12px;font-weight:bold}
+.btn{display:inline-block;margin-top:8px;background:#d70000;color:white;padding:8px 14px;border-radius:20px;text-decoration:none;font-size:13px}
+#loading{text-align:center;padding:40px}
 </style>
 </head>
 <body>
 <header>
 <h1>⚽ THE THAO 24H</h1>
-<p>Tin tức thể thao mới nhất - Bóng đá, Cầu lông, Bơi lội</p>
+<p>Tin Bóng Đá Châu Âu - Tự Động Cập Nhật</p>
+<p style="font-size:13px">Nguồn: BBC Sport Football • Cập nhật mỗi khi tải lại trang</p>
 </header>
-<nav>
-<a href="#">Trang chủ</a>
-<a href="#">Bóng đá</a>
-<a href="#">Cầu lông</a>
-<a href="#">Bơi lội</a>
-<a href="#">Liên hệ</a>
-</nav>
-<div class="hero">
-<h2>Bóng Đá Việt Nam Thắng Lớn!</h2>
-<p>Đội tuyển Việt Nam giành chiến thắng 3-0 trong trận đấu tối qua. Cùng xem lại những khoảnh khắc đẹp nhất.</p>
-<button>Xem ngay</button>
-</div>
+
 <div class="container">
-<div class="card">
-<img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600">
-<div><h3>⚽ Bóng Đá</h3><p>Cập nhật lịch thi đấu, kết quả Ngoại Hạng Anh, La Liga và V-League mỗi ngày.</p></div>
+<div id="loading">Đang tải tin mới nhất... ⏳</div>
+<div id="news"></div>
 </div>
-<div class="card">
-<img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=600">
-<div><h3>🏸 Cầu Lông</h3><p>Nguyễn Thùy Linh lọt vào bán kết giải quốc tế. Phong độ đang rất cao.</p></div>
-</div>
-<div class="card">
-<img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600">
-<div><h3>🏊 Bơi Lội</h3><p>5 lợi ích của việc bơi mỗi ngày giúp bạn khỏe hơn, cao hơn và ngủ ngon hơn.</p></div>
-</div>
-</div>
-<footer>
-<p>Website The Thao - Làm bởi dory-nory-93 | Nhiệm vụ 3 - Deploy với Vercel</p>
-<p>Năm 2026</p>
-</footer>
+
+<script>
+async function loadNews(){
+  try{
+    const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/sport/football/rss.xml');
+    const data = await res.json();
+    let html = '';
+    data.items.slice(0,10).forEach(item=>{
+      html += <div class="card">
+        <img src="${item.thumbnail || 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400'}" onerror="this.src='https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400'">
+        <div>
+          <div class="time">${new Date(item.pubDate).toLocaleString('vi-VN')} • CHÂU ÂU</div>
+          <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+          <p>${item.description.replace(/<[^>]*>/g,'').slice(0,150)}...</p>
+          <a class="btn" href="${item.link}" target="_blank">Đọc Chi Tiết →</a>
+        </div>
+      </div>;
+    });
+    document.getElementById('news').innerHTML = html;
+    document.getElementById('loading').style.display='none';
+  }catch(e){
+    document.getElementById('loading').innerHTML = 'Không tải được tin, bạn thử tải lại trang (F5) nha.';
+  }
+}
+loadNews();
+</script>
 </body>
 </html>
