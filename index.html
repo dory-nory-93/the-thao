@@ -1,4 +1,221 @@
-await fetchRSS('https://vnexpress.net/rss/the-gioi.rss','tin-tuc','tin-tg','TIN THẾ GIỚI','https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400',['tin-tg']);
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE THAO 24H - Bóng Đá, Tin Tức & Tài Chính</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4}
+header{background:#d32f2f;color:#fff;padding:22px 15px;text-align:center;position:sticky;top:0;z-index:10}
+header h1{margin:0;font-size:28px}
+header p{margin:5px 0 0;opacity:.9}
+.main-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px 10px 5px;background:#fff;position:sticky;top:98px;z-index:9;box-shadow:0 1px 5px rgba(0,0,0,.08)}
+.main-tabs button{border:none;padding:11px 16px;border-radius:25px;background:#eee;cursor:pointer;font-weight:bold;font-size:14px}
+.main-tabs button.active{background:#d32f2f;color:#fff}
+.main-tabs button.finance.active{background:#1b5e20;color:#fff}
+.sub-tabs{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;padding:12px 10px}
+.sub-tabs button{border:1px solid #ddd;padding:8px 14px;border-radius:20px;background:#fff;cursor:pointer;font-size:13px}
+.sub-tabs button.active{background:#111;color:#fff;border-color:#111}
+.container{max-width:820px;margin:5px auto;padding:0 15px 30px}
+.finance-bar{background:#1b5e20;color:#fff;padding:12px 15px;border-radius:10px;margin-bottom:15px;display:flex;gap:15px;justify-content:space-between;flex-wrap:wrap;font-size:13px;font-weight:bold}
+.finance-bar span{background:rgba(255,255,255,.15);padding:6px 10px;border-radius:8px}
+.card{background:#fff;display:flex;gap:15px;padding:15px;margin-bottom:15px;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.08)}
+.card img{width:160px;height:105px;object-fit:cover;border-radius:8px;flex-shrink:0}
+.card h3{margin:5px 0;font-size:18px;line-height:1.4}
+.card h3 a{color:#111;text-decoration:none}
+.card p{color:#555;font-size:14px;line-height:1.5;margin:5px 0}
+.time{font-size:12px;color:#d32f2f;font-weight:bold}
+.tag{display:inline-block;background:#ffebee;color:#d32f2f;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:bold;margin-left:5px}
+.tag.green{background:#e8f5e9;color:#1b5e20}
+.btn{display:inline-block;margin-top:8px;background:#d32f2f;color:#fff;padding:7px 13px;border-radius:6px;text-decoration:none;font-size:13px}
+.btn.green{background:#1b5e20}
+#loading{text-align:center;padding:40px;font-size:16px}
+.count{text-align:center;color:#777;font-size:13px;margin-bottom:10px}
+@media(max-width:600px){.card img{width:110px;height:80px} header h1{font-size:24px} .main-tabs{top:92px}}
+</style>
+</head>
+<body>
+<header><h1>⚽ THE THAO 24H</h1><p>Bóng Đá • Thể Thao • Tin Tức • Tài Chính - Cập Nhật 24/7</p></header>
+
+<div class="main-tabs" id="mainTabs">
+<button class="active" onclick="setMain('all',this)">🏠 Tất Cả</button>
+<button onclick="setMain('the-thao',this)">🏅 Thể Thao</button>
+<button onclick="setMain('bong-da',this)">⚽ Bóng Đá</button>
+<button onclick="setMain('tin-tuc',this)">📰 Tin Tức</button>
+<button class="finance" onclick="setMain('tai-chinh',this)">💰 Tài Chính</button>
+</div>
+
+<div class="sub-tabs" id="subTabs"></div>
+<div class="container">
+<div id="financeBar" style="display:none" class="finance-bar">
+<span>📈 VN-Index: <b id="vnindex">Đang tải...</b></span>
+<span>🟡 Vàng SJC: <b id="gold">Đang tải...</b></span>
+<span>💵 USD/VND: <b id="usd">Đang tải...</b></span>
+<span>₿ Bitcoin: <b id="btc">Đang tải...</b></span>
+</div>
+<div class="count" id="count"></div>
+<div id="loading">Đang tải tin mới nhất...</div>
+<div id="news"></div>
+</div>
+
+<script>
+let allNews = [];
+let main = 'all';
+let sub = 'all';
+
+const SUBS = {
+  'all': [{id:'all',label:'Tất Cả'}],
+  'the-thao': [
+    {id:'all',label:'Tất Cả Thể Thao'},
+    {id:'the-thao-vn',label:'🇻🇳 Thể Thao VN'},
+    {id:'the-thao-tg',label:'🌍 Thể Thao Thế Giới'},
+    {id:'tennis',label:'🎾 Tennis'},
+    {id:'f1',label:'🏎️ F1 - Đua Xe'},
+    {id:'bong-ro',label:'🏀 Bóng Rổ'},
+  ],
+  'bong-da': [
+    {id:'all',label:'Tất Cả Bóng Đá'},
+    {id:'chau-au',label:'🇪🇺 Châu Âu'},
+    {id:'chau-a',label:'🌏 Châu Á'},
+    {id:'viet-nam',label:'🇻🇳 Việt Nam'},
+    {id:'the-gioi-bd',label:'🌍 Thế Giới'},
+    {id:'ngoai-hang-anh',label:'🏴󐁧󐁢󐁥󐁮󐁧󐁿 Ngoại Hạng Anh'},
+    {id:'la-liga',label:'🇪🇸 La Liga'},
+    {id:'cup-c1',label:'🏆 Cúp C1'},
+    {id:'serie-a',label:'🇮🇹 Serie A'},
+    {id:'bundesliga',label:'🇩🇪 Bundesliga'},
+  ],
+  'tin-tuc': [
+    {id:'all',label:'Tất Cả Tin Tức'},
+    {id:'tin-vn',label:'🇻🇳 Tin Tức Việt Nam'},
+    {id:'tin-tg',label:'🌍 Tin Tức Thế Giới'},
+    {id:'tin-nong',label:'🔥 Tin Nóng 24H'},
+  ],
+  'tai-chinh': [
+    {id:'all',label:'Tất Cả Tài Chính'},
+    {id:'chung-khoan-vn',label:'📈 Chứng Khoán VN'},
+    {id:'chung-khoan-tg',label:'🌍 Chứng Khoán Thế Giới'},
+    {id:'gia-vang',label:'🟡 Giá Vàng'},
+    {id:'ty-gia',label:'💵 Tỷ Giá - USD'},
+    {id:'crypto',label:'₿ Crypto - Bitcoin'},
+    {id:'kinh-doanh',label:'🏢 Kinh Doanh'},
+    {id:'bat-dong-san',label:'🏠 Bất Động Sản'},
+  ]
+};
+
+function setMain(m, btn){
+  main = m; sub = 'all';
+  document.querySelectorAll('#mainTabs button').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('financeBar').style.display = (m==='tai-chinh' || m==='all') ? 'flex' : 'none';
+  renderSubTabs();
+  render();
+}
+function setSub(s, btn){
+  sub = s;
+  document.querySelectorAll('#subTabs button').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  render();
+}
+function renderSubTabs(){
+  const list = SUBS[main] || SUBS['all'];
+  document.getElementById('subTabs').innerHTML = list.map(s=><button class="${s.id===sub?'active':''}" onclick="setSub('${s.id}',this)">${s.label}</button>).join('');
+}
+function getFiltered(){
+  let list = [...allNews];
+  if(main==='the-thao') list = list.filter(n=> n.main==='the-thao' || n.main==='bong-da');
+  if(main==='bong-da') list = list.filter(n=> n.main==='bong-da');
+  if(main==='tin-tuc') list = list.filter(n=> n.main==='tin-tuc');
+  if(main==='tai-chinh') list = list.filter(n=> n.main==='tai-chinh');
+  if(sub!=='all') list = list.filter(n=> n.sub===sub  n.sub2===sub  n.tags.includes(sub));
+  return list;
+}
+function render(){
+  const list = getFiltered();
+  document.getElementById('count').innerText = list.length ? Đang hiển thị ${list.length} tin mới nhất : '';
+  if(list.length===0){
+    document.getElementById('news').innerHTML = '<p style="text-align:center;padding:20px">Chưa có tin mục này, bạn bấm mục khác xem thử nha...</p>';
+    return;
+  }
+  let html='';
+  list.slice(0,40).forEach(n=>{
+    const isFin = n.main==='tai-chinh';
+    html += <div class="card">
+      <img src="${n.img}" onerror="this.src='https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400'">
+      <div>
+        <div class="time">${n.date}<span class="tag ${isFin?'green':''}">${n.label}</span></div>
+        <h3><a href="${n.link}" target="_blank">${n.title}</a></h3>
+        <p>${n.desc}</p>
+        <a class="btn ${isFin?'green':''}" href="${n.link}" target="_blank">Đọc Chi Tiết →</a>
+      </div>
+    </div>;
+  });
+  document.getElementById('news').innerHTML = html;
+}
+async function fetchRSS(rssUrl, mainCat, subCat, label, img, tags=[]){
+  try{
+    const url = encodeURIComponent(rssUrl);
+    const res = await fetch('https://api.allorigins.win/raw?url=' + url);
+    const text = await res.text();
+    const xml = new DOMParser().parseFromString(text, "text/xml");
+    const items = xml.querySelectorAll("item");
+    items.forEach((it,i)=>{
+      if(i>=10) return;
+      const title = (it.querySelector("title")?.textContent || '').trim();
+      if(!title) return;
+      const link = it.querySelector("link")?.textContent || '#';
+      let descRaw = it.querySelector("description")?.textContent || '';
+      let desc = descRaw.replace(/<[^>]*>/g,'').slice(0,160)+'...';
+      const dateRaw = it.querySelector("pubDate")?.textContent || '';
+      const date = dateRaw ? new Date(dateRaw).toLocaleString('vi-VN') : '';
+      let imgUrl = img;
+      const m = descRaw.match(/https:\/\/[^"'\s]+\.(jpg|jpeg|png|webp)/);
+      if(m) imgUrl = m[0];
+      const enc = it.querySelector("enclosure");
+      if(enc && enc.getAttribute("url")) imgUrl = enc.getAttribute("url");
+      let sub2 = subCat;
+      let t = title.toLowerCase();
+      if(t.includes('premier')t.includes('ngoại hạng')t.includes('man city')t.includes('arsenal')t.includes('liverpool')) sub2='ngoai-hang-anh';
+      if(t.includes('real madrid')t.includes('barcelona')t.includes('la liga')) sub2='la-liga';
+      if(t.includes('champions')||t.includes('cúp c1')) sub2='cup-c1';
+      if(t.includes('vàng')t.includes('gold')t.includes('sjc')) sub2='gia-vang';
+      if(t.includes('bitcoin')t.includes('crypto')t.includes('btc')||t.includes('ethereum')) sub2='crypto';
+      if(t.includes('usd')t.includes('tỷ giá')t.includes('đô la')||t.includes('dollar')) sub2='ty-gia';
+      if(t.includes('bất động sản')t.includes('nhà đất')t.includes('chung cư')) sub2='bat-dong-san';
+      allNews.push({title, link, desc, date, main:mainCat, sub:subCat, sub2, label, img:imgUrl, tags});
+    });
+  }catch(e){ console.log('Lỗi', label, e); }
+}
+async function loadFinancePrice(){
+  try{
+    // Lấy giá Bitcoin + USD từ API miễn phí
+    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+    const j = await r.json();
+    document.getElementById('btc').innerText = '$' + Math.round(j.bitcoin.usd).toLocaleString('en-US');
+  }catch(e){ document.getElementById('btc').innerText = 'Xem tin bên dưới'; }
+  try{
+    const r2 = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+    const j2 = await r2.json();
+    document.getElementById('usd').innerText = Math.round(j2.rates.VND).toLocaleString('vi-VN') + ' VND';
+  }catch(e){ document.getElementById('usd').innerText = 'Xem tin bên dưới'; }
+  document.getElementById('vnindex').innerText = 'Xem tin Chứng Khoán VN bên dưới';
+  document.getElementById('gold').innerText = 'Xem tin Giá Vàng bên dưới';
+}
+async function loadNews(){
+  renderSubTabs();
+  loadFinancePrice();
+  // BÓNG ĐÁ
+  await fetchRSS('https://www.espn.com/espn/rss/soccer/news','bong-da','chau-au','CHÂU ÂU','https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400',['chau-au']);
+  await fetchRSS('https://vnexpress.net/rss/bong-da.rss','bong-da','viet-nam','BÓNG ĐÁ VN','https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400',['viet-nam']);
+  await fetchRSS('https://vnexpress.net/rss/the-thao.rss','bong-da','chau-a','CHÂU Á','https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400',['chau-a']);
+  // THỂ THAO
+  await fetchRSS('https://www.espn.com/espn/rss/news','the-thao','the-thao-tg','THỂ THAO TG','https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400',['the-thao-tg']);
+  await fetchRSS('https://www.espn.com/espn/rss/tennis/news','the-thao','tennis','TENNIS','https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=400',['tennis']);
+  await fetchRSS('https://www.espn.com/espn/rss/rpm/news','the-thao','f1','F1','https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400',['f1']);
+  await fetchRSS('https://www.espn.com/espn/rss/nba/news','the-thao','bong-ro','BÓNG RỔ','https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400',['bong-ro']);
+  // TIN TỨC
+  await fetchRSS('https://vnexpress.net/rss/tin-moi-nhat.rss','tin-tuc','tin-vn','TIN VIỆT NAM','https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400',['tin-vn','tin-nong']);
+  await fetchRSS('https://vnexpress.net/rss/the-gioi.rss','tin-tuc','tin-tg','TIN THẾ GIỚI','https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=400',['tin-tg']);
   // TÀI CHÍNH - CHỨNG KHOÁN - MỚI THÊM
   await fetchRSS('https://vnexpress.net/rss/kinh-doanh.rss','tai-chinh','kinh-doanh','KINH DOANH','https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400',['kinh-doanh']);
   await fetchRSS('https://vnexpress.net/rss/chung-khoan.rss','tai-chinh','chung-khoan-vn','CHỨNG KHOÁN VN','https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400',['chung-khoan-vn']);
