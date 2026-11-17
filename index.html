@@ -14,55 +14,67 @@ header p{font-size:14px;opacity:0.9;margin-top:5px}
 .tabs button{border:none;background:#eee;padding:8px 14px;border-radius:20px;font-size:14px;font-weight:bold;cursor:pointer}
 .tabs button.active{background:#e11d2e;color:white}
 .list{max-width:800px;margin:16px auto;padding:0 12px;display:flex;flex-direction:column;gap:14px}
-.card{display:flex;gap:12px;background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);text-decoration:none;color:#000;cursor:pointer}
-.card:active{transform:scale(0.98)}
+.card{display:flex;gap:12px;background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);text-decoration:none;color:#000}
 .card img{width:180px;height:120px;object-fit:cover;background:#ddd}
 .card div{padding:12px 10px 12px 0}
 .tag{color:#e11d2e;font-size:12px;font-weight:bold}
 .card h3{font-size:17px;line-height:1.4;margin:6px 0}
-.card p{font-size:13px;color:#666;line-height:1.5}
+.card p{font-size:13px;color:#666;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .time{font-size:12px;color:#999;margin-top:8px}
+.loading{text-align:center;padding:40px;color:#666}
 @media(max-width:600px){.card img{width:120px;height:90px}}
 </style>
 </head>
 <body>
-<header><h1>⚽ THE THAO 24H</h1><p>Bóng Đá • Thể Thao • Tin Tức • Tài Chính - Cập Nhật 24/7</p></header>
+<header><h1>⚽ THE THAO 24H</h1><p>Bóng Đá • Thể Thao • Tin Tức • Tài Chính - Tự động cập nhật từ VnExpress</p><p id="update" style="font-size:12px;margin-top:6px">Đang tải tin mới nhất...</p></header>
 <div class="tabs">
 <button class="active" onclick="loc('all',this)">🏠 Tất Cả</button>
 <button onclick="loc('BÓNG ĐÁ',this)">⚽ Bóng Đá</button>
 <button onclick="loc('THỂ THAO',this)">🏆 Thể Thao</button>
-<button onclick="loc('TIN TỨC',this)">📰 Tin Tức</button>
-<button onclick="loc('TÀI CHÍNH',this)">💰 Tài Chính</button>
+<button onclick="loc('KINH DOANH',this)">💰 Tài Chính</button>
 </div>
-<div class="list" id="list">
-
-<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Man+City+thắng+3-2" target="_blank"><img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Man City thắng kịch tính 3-2 ở phút bù giờ, giữ vững ngôi đầu</h3><p>Trận đấu rượt đuổi tỷ số hấp dẫn nhất vòng đấu, Haaland lập cú đúp quyết định.</p><div class="time">2 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Real+Madrid+hợp+đồng+bom+tấn" target="_blank"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Real Madrid công bố bản hợp đồng bom tấn mùa hè</h3><p>Đội bóng Hoàng gia chính thức chiêu mộ ngôi sao trẻ được săn đón nhất châu Âu.</p><div class="time">3 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-<a class="card" data-cat="THỂ THAO" href="https://www.google.com/search?q=Việt+Nam+giành+HCV+SEA+Games" target="_blank"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600"><div><div class="tag">THỂ THAO</div><h3>Việt Nam giành HCV SEA Games sau 10 năm chờ đợi</h3><p>Vận động viên Việt Nam phá kỷ lục quốc gia, mang về tấm huy chương vàng quý giá.</p><div class="time">5 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-<a class="card" data-cat="TIN TỨC" href="https://www.google.com/search?q=Giá+vàng+hôm+nay" target="_blank"><img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600"><div><div class="tag">TIN TỨC</div><h3>Giá vàng hôm nay tăng mạnh, lập đỉnh mới</h3><p>Giá vàng trong nước tăng 500.000 đồng/lượng, nhà đầu tư đổ xô đi mua.</p><div class="time">1 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=MU+thua+sân+nhà" target="_blank"><img src="https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>MU thua sốc trên sân nhà, HLV lên tiếng xin lỗi fan</h3><p>Quỷ đỏ nhận thất bại bất ngờ, áp lực lên ban huấn luyện ngày càng lớn.</p><div class="time">4 giờ trước • Bấm để đọc chi tiết →</div></div></a><a class="card" data-cat="THỂ THAO" href="https://www.google.com/search?q=Marathon+Hà+Nội" target="_blank"><img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600"><div><div class="tag">THỂ THAO</div><h3>Marathon Hà Nội thu hút 10.000 vận động viên</h3><p>Giải chạy lớn nhất năm diễn ra sôi động với nhiều kỷ lục mới được thiết lập.</p><div class="time">6 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Đội+tuyển+Việt+Nam+vào+bán+kết+AFF+Cup" target="_blank"><img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Đội tuyển Việt Nam thắng 2-0, vào bán kết AFF Cup</h3><p>Hai bàn thắng đẹp mắt giúp Việt Nam giành vé sớm vào vòng trong.</p><div class="time">8 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-<a class="card" data-cat="TÀI CHÍNH" href="https://www.google.com/search?q=VN-Index+vượt+1300" target="_blank"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600"><div><div class="tag">TÀI CHÍNH</div><h3>Chứng khoán tăng điểm mạnh, VN-Index vượt 1.300</h3><p>Thị trường khởi sắc nhờ nhóm cổ phiếu ngân hàng và bất động sản dẫn dắt.</p><div class="time">2 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-<a class="card" data-cat="THỂ THAO" href="https://www.google.com/search?q=Cầu+lông+Việt+Nam+giải+thế+giới" target="_blank"><img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=600"><div><div class="tag">THỂ THAO</div><h3>Cầu lông Việt Nam tạo địa chấn ở giải thế giới</h3><p>Tay vợt trẻ Việt Nam đánh bại hạt giống số 1 thế giới sau 3 set kịch tính.</p><div class="time">7 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Barcelona+thắng+4-1+Yamal" target="_blank"><img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Barcelona thắng 4-1, Yamal lập siêu phẩm</h3><p>Ngôi sao 17 tuổi tiếp tục tỏa sáng với pha solo ghi bàn đẹp nhất vòng đấu.</p><div class="time">9 giờ trước • Bấm để đọc chi tiết →</div></div></a>
-
-</div>
+<div class="list" id="list"><div class="loading">Đang tải tin mới nhất...</div></div>
 <script>
+let allNews=[];
+async function load(){
+try{
+const feeds=[
+'https://vnexpress.net/rss/the-thao.rss',
+'https://vnexpress.net/rss/bong-da.rss',
+'https://vnexpress.net/rss/kinh-doanh.rss'
+];
+let items=[];
+for(let f of feeds){
+try{
+const r=await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(f));
+const d=await r.json();
+d.items.forEach(it=>{
+let cat='THỂ THAO';
+if(f.includes('bong-da')) cat='BÓNG ĐÁ';
+if(f.includes('kinh-doanh')) cat='KINH DOANH';
+items.push({title:it.title,desc:it.description.replace(/<[^>]*>/g,'').slice(0,140)+'...',link:it.link,img:it.thumbnailit.enclosure?.link'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600',date:new Date(it.pubDate).toLocaleString('vi-VN'),cat});
+});
+}catch(e){}
+}
+if(items.length===0) throw new Error('no news');
+items.sort((a,b)=>new Date(b.date)-new Date(a.date));
+allNews=items.slice(0,20);
+document.getElementById('update').textContent='Cập nhật lúc: '+new Date().toLocaleString('vi-VN')+' • '+allNews.length+' tin mới';
+render(allNews);
+}catch(e){
+document.getElementById('list').innerHTML='<div class="loading">Không tải được tin mới, bạn bấm F5 để thử lại nhé. Tin vẫn lấy từ VnExpress nên sẽ tự cập nhật.</div>';
+}
+}
+function render(list){
+document.getElementById('list').innerHTML=list.map(n=><a class="card" data-cat="${n.cat}" href="${n.link}" target="_blank"><img src="${n.img}" onerror="this.src='https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600'"><div><div class="tag">${n.cat}</div><h3>${n.title}</h3><p>${n.desc}</p><div class="time">${n.date} • Bấm để đọc →</div></div></a>).join('');
+}
 function loc(cat,btn){
 document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
 btn.classList.add('active');
-document.querySelectorAll('.card').forEach(c=>{
-c.style.display=(cat==='all'||c.dataset.cat===cat)?'flex':'none';
-});
+render(cat==='all'?allNews:allNews.filter(n=>n.cat===cat));
 }
+load();
+setInterval(load, 10*60*1000);
 </script>
 </body>
 </html>
