@@ -1,76 +1,489 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE THAO 24H</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f2f2f2}
-header{background:#e11d2e;color:white;text-align:center;padding:20px}
-header h1{font-size:28px}
-header p{font-size:14px;opacity:0.9;margin-top:5px}
-.tabs{display:flex;gap:8px;justify-content:center;padding:12px;background:white;flex-wrap:wrap}
-.tabs button{border:none;background:#eee;padding:8px 14px;border-radius:20px;font-size:14px;font-weight:bold;cursor:pointer}
-.tabs button.active{background:#e11d2e;color:white}
-.list{max-width:800px;margin:16px auto;padding:0 12px;display:flex;flex-direction:column;gap:14px}
-.card{display:flex;gap:12px;background:white;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);text-decoration:none;color:#000}
-.card img{width:180px;height:120px;object-fit:cover;background:#ddd}
-.card div{padding:12px 10px 12px 0}
-.tag{color:#e11d2e;font-size:12px;font-weight:bold}
-.card h3{font-size:17px;line-height:1.4;margin:6px 0}
-.card p{font-size:13px;color:#666;line-height:1.5}
-.time{font-size:12px;color:#999;margin-top:8px}
-@media(max-width:600px){.card img{width:120px;height:90px}}
-</style>
-</head>
-<body>
-<header><h1>⚽ THE THAO 24H</h1><p>Bóng Đá • Thể Thao • Tin Tức • Tài Chính</p><p id="update" style="font-size:12px;margin-top:6px">Tin nổi bật - Tự động thử tải tin mới từ VnExpress</p></header>
-<div class="tabs">
-<button class="active" onclick="loc('all',this)">🏠 Tất Cả</button>
-<button onclick="loc('BÓNG ĐÁ',this)">⚽ Bóng Đá</button>
-<button onclick="loc('THỂ THAO',this)">🏆 Thể Thao</button>
-<button onclick="loc('KINH DOANH',this)">💰 Tài Chính</button>
-</div>
-<div class="list" id="list">
 
-<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Man+City+thang+3-2" target="_blank"><img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Man City thắng kịch tính 3-2 ở phút bù giờ, giữ vững ngôi đầu</h3><p>Trận đấu rượt đuổi tỷ số hấp dẫn nhất vòng đấu, Haaland lập cú đúp quyết định.</p><div class="time">Tin nổi bật • Bấm để đọc →</div></div></a>
-
-<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Real+Madrid+hop+dong+bom+tan" target="_blank"><img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Real Madrid công bố bản hợp đồng bom tấn mùa hè</h3><p>Đội bóng Hoàng gia chính thức chiêu mộ ngôi sao trẻ được săn đón nhất châu Âu.</p><div class="time">Tin nổi bật • Bấm để đọc →</div></div></a>
-
-<a class="card" data-cat="THỂ THAO" href="https://www.google.com/search?q=Viet+Nam+giang+HCV+SEA+Games" target="_blank"><img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600"><div><div class="tag">THỂ THAO</div><h3>Việt Nam giành HCV SEA Games sau 10 năm chờ đợi</h3><p>Vận động viên Việt Nam phá kỷ lục quốc gia, mang về tấm huy chương vàng quý giá.</p><div class="time">Tin nổi bật • Bấm để đọc →</div></div></a>
-
-<a class="card" data-cat="KINH DOANH" href="https://www.google.com/search?q=Gia+vang+hom+nay" target="_blank"><img src="https://images.unsplash.com/photo-1610375461246-83df859d849d?w=600"><div><div class="tag">KINH DOANH</div><h3>Giá vàng hôm nay tăng mạnh, lập đỉnh mới</h3><p>Giá vàng trong nước tăng 500.000 đồng/lượng, nhà đầu tư đổ xô đi mua.</p><div class="time">Tin nổi bật • Bấm để đọc →</div></div></a>
-
-<a class="card" data-cat="BÓNG ĐÁ" href="https://www.google.com/search?q=Doi+tuyen+Viet+Nam+vao+ban+ket" target="_blank"><img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600"><div><div class="tag">BÓNG ĐÁ</div><h3>Đội tuyển Việt Nam thắng 2-0, vào bán kết AFF Cup</h3><p>Hai bàn thắng đẹp mắt giúp Việt Nam giành vé sớm vào vòng trong.</p><div class="time">Tin nổi bật • Bấm để đọc →</div></div></a><a class="card" data-cat="KINH DOANH" href="https://www.google.com/search?q=VN-Index+vuot+1300" target="_blank"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600"><div><div class="tag">KINH DOANH</div><h3>Chứng khoán tăng điểm mạnh, VN-Index vượt 1.300</h3><p>Thị trường khởi sắc nhờ nhóm cổ phiếu ngân hàng và bất động sản dẫn dắt.</p><div class="time">Tin nổi bật • Bấm để đọc →</div></div></a>
-
-</div>
-<script>
-function loc(cat,btn){
-document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-document.querySelectorAll('.card').forEach(c=>{
-c.style.display=(cat==='all'||c.getAttribute('data-cat')===cat)?'flex':'none';
-});
+* {
+  box-sizing: border-box;
 }
-// Thử tải tin mới, nếu được thì thay, nếu không được thì giữ nguyên tin cũ ở trên
-fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent('https://vnexpress.net/rss/the-thao.rss'))
-.then(r=>r.json())
-.then(d=>{
-if(!d.items||d.items.length===0) return;
-let html='';
-d.items.slice(0,8).forEach(it=>{
-let img=it.thumbnail||'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600';
-let desc=(it.description||'').replace(/<[^>]*>/g,'').slice(0,130);
-let date=new Date(it.pubDate).toLocaleString('vi-VN');
-html+='<a class="card" data-cat="THỂ THAO" href="'+it.link+'" target="_blank"><img src="'+img+'"><div><div class="tag">THỂ THAO • VNEXPRESS</div><h3>'+it.title+'</h3><p>'+desc+'...</p><div class="time">'+date+' • Bấm để đọc →</div></div></a>';
-});
-if(html){
-document.getElementById('list').innerHTML=html;
-document.getElementById('update').textContent='Đã cập nhật tin mới từ VnExpress lúc: '+new Date().toLocaleString('vi-VN');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #f3f5f8 !important;
+  color: #172033 !important;
+  font-family: Arial, Helvetica, sans-serif;
 }
-})
-.catch(e=>{});
-</script>
-</body>
-</html>
+
+body {
+  min-height: 100vh;
+}
+
+main {
+  background: #f3f5f8;
+  color: #172033;
+}
+
+h1, h2, h3, h4, p, span, strong {
+  color: inherit;
+}
+
+button, input {
+  font: inherit;
+}
+
+.container {
+  width: min(1200px, 94%);
+  margin: auto;
+}
+
+.top-header {
+  background: #101c36;
+  color: white;
+  padding: 9px 0;
+  font-size: 12px;
+}
+
+.top-header-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header {
+  background: white;
+  color: #172033;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-main {
+  min-height: 85px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.logo {
+  color: #101c36 !important;
+  font-size: 27px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.logo span {
+  color: #e52d3c !important;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 360px;
+  padding: 12px;
+  background: #f2f4f8;
+  border-radius: 7px;
+  color: #172033;
+}
+
+.search-box input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #172033;
+}
+
+.search-box input::placeholder {
+  color: #777;
+}
+
+.header-right {
+  color: #e52d3c;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  background: #ed3442;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.navigation {
+  background: white;
+  border-top: 1px solid #eee;
+}
+
+.nav-list {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+}
+
+.nav-list button {
+  background: white;
+  color: #27334a;
+  border: 0;
+  padding: 16px 11px;
+  white-space: nowrap;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.nav-list button.active,
+.nav-list button:hover {
+  color: #e52d3c;
+}
+
+.hero {
+  margin-top: 28px;
+  border-radius: 12px;
+  padding: 45px;
+  min-height: 350px;
+  background: linear-gradient(120deg, #101c36, #243e69);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero h1 {
+  color: white !important;
+  font-size: clamp(30px, 4vw, 49px);
+  line-height: 1.18;
+}
+
+.hero p {
+  color: #d5deed !important;
+  line-height: 1.7;
+}
+
+.hero-label {
+  color: #ff6875 !important;
+  font-weight: bold;
+}
+
+.hero button {
+  background: #e52d3c;
+  color: white;
+  border: 0;
+  padding: 14px 23px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hero-visual {
+  width: 250px;
+  height: 250px;
+  border: 1px solid #64799f;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f4c85d;
+  flex-shrink: 0;
+}
+
+.hero-visual span {
+  color: white;
+  font-weight: bold;
+}
+
+.hero-visual small {
+  color: #bac9df;
+}
+
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+  color: #667085;
+  font-size: 12px;
+}
+
+.status-bar button {
+  margin-left: auto;
+  color: #e52d3c;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.live-label {
+  color: #e52d3c;
+  font-weight: bold;
+}
+
+.quick-categories {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.quick-card {
+  background: white;
+  color: #172d50;
+  border: 1px solid #e5e7eb;
+  border-radius: 9px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+
+.quick-card:hover {
+  color: #e52d3c;
+}
+
+.section {
+  margin-top: 40px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #172033;
+}
+
+.section-title > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-title h2 {
+  color: #172033;
+  font-size: 21px;
+}
+
+.red-line {
+  height: 25px;
+  width: 5px;
+  background: #e52d3c;
+}
+
+.featured {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  background: white;
+  color: #172033;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.featured img {
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+}
+
+.featured-content {
+  padding: 30px;
+  color: #172033;
+}
+
+.featured-content h2 {
+  color: #172033;
+  line-height: 1.4;
+}
+
+.featured-content p {
+  color: #687386;
+  line-height: 1.7;
+}
+
+.category-label {
+  color: #e52d3c !important;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #8992a2;
+  font-size: 11px;
+  margin: 15px 0;
+}
+
+.meta span {
+  color: #8992a2;
+}
+
+.read-more {
+  color: #e52d3c !important;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.category-grid button {
+  background: white;
+  color: #26334b;
+  border: 1px solid #e5e7eb;
+  padding: 17px;
+  border-radius: 7px;
+  text-align: left;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.category-grid button:hover {
+  color: #e52d3c;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.news-card {
+  background: white;
+  color: #172033;
+  border-radius: 9px;
+  overflow: hidden;
+  border: 1px solid #edf0f4;
+}
+
+.news-card img {
+  width: 100%;
+  height: 205px;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 20px;
+  color: #172033;
+}
+
+.news-content h3 {
+  color: #172033;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.news-content p {
+  color: #697586;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.empty {
+  padding: 45px;
+  background: white;
+  color: #667085;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.footer {
+  margin-top: 65px;
+  padding-top: 45px;
+  background: #101c36;
+  color: #c6d0e0;
+}
+
+.footer p {
+  color: #c6d0e0;
+}
+
+.footer h3 {
+  color: white;
+}
+
+.footer-logo {
+  color: white !important;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 35px;
+  padding-bottom: 35px;
+}
+
+.copyright {
+  border-top: 1px solid #293852;
+  color: white;
+  text-align: center;
+  padding: 18px;
+}
+
+.mobile-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .header-main {
+    flex-wrap: wrap;
+    padding: 15px 0;
+  }
+
+  .search-box {
+    order: 3;
+    width: 100%;
+  }
+
+  .mobile-button {
+    display: block;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+  }
+
+  .nav-list.show-menu {
+    display: flex;
+  }
+
+  .hero {
+    padding: 25px;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .quick-categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .featured {
+    grid-template-columns: 1fr;
+  }
+
+  .featured img {
+    height: 230px;
+  }
+
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+}
+import "./globals.css";
