@@ -5,6 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#111318">
+<meta name="description" content="THETHAO24H - Tin thể thao, bóng đá, thời sự và tài chính.">
 <title>THETHAO24H | Tin thể thao 24 giờ</title>
 <style>
 :root{--r:#e21d2b;--d:#111318;--ink:#20242b;--mut:#747b85;--bg:#f1f2f4}
@@ -108,529 +109,591 @@ footer p{font-size:11px;color:#adb4bd;line-height:1.7;max-width:580px}
 <body>
 
 <div class="top">
- <div class="wrap">
-  <span>THETHAO24H · NHỊP ĐẬP THỂ THAO</span>
-  <span id="date">Đang cập nhật</span>
- </div>
+<div class="wrap">
+<span>THETHAO24H · NHỊP ĐẬP THỂ THAO</span>
+<span id="date">Đang cập nhật</span>
+</div>
 </div>
 
 <header class="mast">
- <div class="wrap">
-  <div>
-   <div class="logo">THE<span>THAO</span>24H</div>
-   <div class="slogan">TIN NHANH · PHÂN TÍCH · BÌNH LUẬN</div>
-  </div>
-  <form class="search" id="search">
-   <input id="q" placeholder="Tìm kiếm tin thể thao...">
-   <button>TÌM KIẾM</button>
-  </form>
- </div>
+<div class="wrap">
+<div>
+<div class="logo">THE<span>THAO</span>24H</div>
+<div class="slogan">TIN NHANH · THỂ THAO · TÀI CHÍNH</div>
+</div>
+<form class="search" id="search">
+<input id="q" placeholder="Tìm kiếm tin thể thao...">
+<button>TÌM KIẾM</button>
+</form>
+</div>
 </header>
 
 <nav class="nav">
- <div class="wrap" id="mainNav">
-  <button class="active" data-parent="home">TRANG CHỦ</button>
-  <button data-parent="football">BÓNG ĐÁ</button>
-  <button data-parent="domestic">TRONG NƯỚC</button>
-  <button data-parent="international">QUỐC TẾ</button>
-  <button data-parent="fixtures">LỊCH THI ĐẤU</button>
-  <button data-parent="analysis">NHẬN ĐỊNH</button>
- </div>
+<div class="wrap" id="mainNav">
+<button class="active" data-parent="home">TẤT CẢ</button>
+<button data-parent="sports">THỂ THAO</button>
+<button data-parent="football">BÓNG ĐÁ</button>
+<button data-parent="news">TIN TỨC</button>
+<button data-parent="finance">TÀI CHÍNH - CHỨNG KHOÁN</button>
+</div>
 </nav>
 
 <div class="sub" id="sub">
- <div class="wrap" id="subItems"></div>
+<div class="wrap" id="subItems"></div>
 </div>
 
 <main class="wrap">
- <div class="breaking">
-  <b>TIN NÓNG 24H</b>
-  <span id="breaking">Đang cập nhật tin mới...</span>
- </div>
 
- <div class="heading">
-  <h2 id="heroTitle">Tâm điểm thể thao</h2>
-  <a href="#latest">XEM TIN MỚI →</a>
- </div>
+<div class="breaking">
+<b>TIN NÓNG 24H</b>
+<span id="breaking">Đang cập nhật tin mới...</span>
+</div>
 
- <section class="hero">
-  <div class="heroMain" id="heroMain">
-   <img src="" alt="Tin thể thao">
-   <div class="caption">
-    <span class="tag">TIN TIÊU ĐIỂM</span>
-    <h1>THETHAO24H – Nhịp đập thể thao mỗi ngày</h1>
-    <p>Tin nóng, diễn biến và câu chuyện thể thao đáng chú ý.</p>
-   </div>
-  </div>
-  <div class="heroSide" id="heroSide">
-   <div class="loading">Đang tải tin...</div>
-  </div>
- </section>
+<div class="heading">
+<h2 id="heroTitle">Tâm điểm thể thao</h2>
+<a href="#latest">XEM TIN MỚI →</a>
+</div>
 
- <section class="score">
-  <div class="scoreHead">
-   <h2>⚽ TỶ SỐ & LỊCH THI ĐẤU</h2>
-   <select id="competition">
-    <option value="PL">Ngoại hạng Anh</option>
-    <option value="CL">Champions League</option>
-    <option value="PD">LaLiga</option>
-    <option value="SA">Serie A</option>
-    <option value="BL1">Bundesliga</option>
-    <option value="FL1">Ligue 1</option>
-   </select>
-  </div>
-  <div class="scoreGrid" id="matches">
-   <div class="emptyScore">Cần cấu hình API dữ liệu bóng đá để hiển thị kết quả thật.</div>
-  </div>
-  <div class="status" id="matchStatus">Chưa kết nối API.</div>
- </section>
+<section class="hero">
+<div class="heroMain" id="heroMain">
+<div class="caption">
+<span class="tag">TIN TIÊU ĐIỂM</span>
+<h1>THETHAO24H – Nhịp đập thể thao mỗi ngày</h1>
+<p>Tin nóng, diễn biến và câu chuyện thể thao đáng chú ý.</p>
+</div>
+</div>
+<div class="heroSide" id="heroSide">
+<div class="loading">Đang tải tin...</div>
+</div>
+</section>
 
- <div class="layout">
-  <section id="latest">
-   <div class="heading">
-    <h2 id="newsTitle">Tin thể thao mới nhất</h2>
-   </div>
-   <div class="status" id="newsStatus">Đang kết nối nguồn tin...</div>
-   <div class="grid" id="newsGrid">
-    <div class="loading">Đang tải...</div>
-   </div>
-  </section>
+<section class="score">
+<div class="scoreHead">
+<h2>⚽ TỶ SỐ & LỊCH THI ĐẤU</h2>
+<select id="competition">
+<option value="PL">Ngoại hạng Anh</option>
+<option value="CL">Champions League</option>
+<option value="PD">LaLiga</option>
+<option value="SA">Serie A</option>
+<option value="BL1">Bundesliga</option>
+<option value="FL1">Ligue 1</option>
+</select>
+</div>
+<div class="scoreGrid" id="matches">
+<div class="emptyScore">Cần cấu hình API dữ liệu bóng đá để hiển thị kết quả thật.</div>
+</div>
+<div class="status" id="matchStatus">Chưa kết nối API.</div>
+</section>
 
-  <aside>
-   <div class="box">
-    <h3>TIN MỚI ĐÁNG CHÚ Ý</h3>
-    <div id="hot"><p class="muted">Đang cập nhật...</p></div>
-   </div>
+<div class="layout">
+<section id="latest">
+<div class="heading">
+<h2 id="newsTitle">Tin thể thao mới nhất</h2>
+</div>
+<div class="status" id="newsStatus">Đang kết nối nguồn tin...</div>
+<div class="grid" id="newsGrid">
+<div class="loading">Đang tải...</div>
+</div>
+</section>
 
-   <div class="box">
-    <h3>BẢNG XẾP HẠNG</h3>
-    <select id="standingComp" style="width:100%;padding:9px;margin-bottom:10px">
-     <option value="PL">Ngoại hạng Anh</option>
-     <option value="CL">Champions League</option>
-     <option value="PD">LaLiga</option>
-     <option value="SA">Serie A</option>
-     <option value="BL1">Bundesliga</option>
-     <option value="FL1">Ligue 1</option>
-    </select>
-    <div id="standings"><p class="muted">Cần cấu hình API.</p></div>
-    <div class="status" id="standingStatus"></div>
-   </div>
+<aside>
+<div class="box">
+<h3>TIN MỚI ĐÁNG CHÚ Ý</h3>
+<div id="hot"><p class="muted">Đang cập nhật...</p></div>
+</div>
 
-   <div class="box">
-    <h3>VỀ THETHAO24H</h3>
-    <p class="muted">Trang tin tổng hợp bóng đá và thể thao trong nước, quốc tế. Liên kết bài viết dẫn về nguồn xuất bản.</p>
-   </div>
-  </aside>
- </div>
+<div class="box">
+<h3>BẢNG XẾP HẠNG</h3>
+<select id="standingComp" style="width:100%;padding:9px;margin-bottom:10px">
+<option value="PL">Ngoại hạng Anh</option>
+<option value="CL">Champions League</option>
+<option value="PD">LaLiga</option>
+<option value="SA">Serie A</option>
+<option value="BL1">Bundesliga</option>
+</select>
+<div id="standings"><p class="muted">Cần cấu hình API.</p></div>
+<div class="status" id="standingStatus"></div>
+</div>
 
- <section class="panel">
-  <div class="heading">
-   <h2 id="panelTitle">Khám phá chuyên mục</h2>
-  </div>
-  <div class="grid" id="panelNews">
-   <div class="loading">Tin theo chuyên mục sẽ xuất hiện tại đây.</div>
-  </div>
- </section>
+<div class="box">
+<h3>VỀ THETHAO24H</h3>
+<p class="muted">Trang tin tổng hợp thể thao, bóng đá, thời sự, tài chính và chứng khoán trong nước, quốc tế. Bài viết dẫn về nguồn xuất bản tương ứng.</p>
+</div>
+</aside>
+</div>
+
+<section class="panel">
+<div class="heading">
+<h2 id="panelTitle">Khám phá chuyên mục</h2>
+</div>
+<div class="grid" id="panelNews">
+<div class="loading">Tin theo chuyên mục sẽ xuất hiện tại đây.</div>
+</div>
+</section>
 </main>
 
 <footer>
- <div class="wrap">
-  <div class="foot">
-   <div>
-    <div class="logo" style="color:white">THETHAO24H</div>
-    <p>Tin tức thể thao, bóng đá, giải đấu trong nước và quốc tế. Cập nhật nhanh, trình bày rõ ràng và dẫn nguồn bài viết.</p>
-   </div>
-   <div>
-    <b>THÔNG TIN</b>
-    <p>Ảnh và nội dung được lấy từ nguồn RSS khi nguồn cung cấp. Quyền sở hữu thuộc đơn vị xuất bản tương ứng.</p>
-   </div>
-  </div>
-  <div class="copy">© 2026 THETHAO24H. All rights reserved.</div>
- </div>
+<div class="wrap">
+<div class="foot">
+<div>
+<div class="logo" style="color:white">THETHAO24H</div>
+<p>Tin thể thao, bóng đá, thời sự, tài chính và chứng khoán trong nước, quốc tế. Cập nhật nhanh, trình bày rõ ràng và dẫn nguồn bài viết.</p>
+</div>
+<div>
+<b>THÔNG TIN</b>
+<p>Ảnh và nội dung được lấy từ nguồn RSS khi nguồn cung cấp. Quyền sở hữu thuộc đơn vị xuất bản tương ứng.</p>
+</div>
+</div>
+<div class="copy">© 2026 THETHAO24H. All rights reserved.</div>
+</div>
 </footer>
 
 <script>
-const RSS="https://api.rss2json.com/v1/api.json?rss_url=";
 const API="https://api.football-data.org/v4";
 const API_KEY="";
 
 const C={
- football:{p:"football",n:"Tất cả bóng đá",q:"bóng đá"},
- vietnam:{p:"football",n:"Bóng đá Việt Nam",q:'("đội tuyển Việt Nam" OR V-League OR "bóng đá Việt Nam")'},
- epl:{p:"football",n:"Ngoại hạng Anh",q:'("Ngoại hạng Anh" OR "Premier League")'},
- laliga:{p:"football",n:"LaLiga",q:'(LaLiga OR "La Liga" OR "bóng đá Tây Ban Nha")'},
- seriea:{p:"football",n:"Serie A",q:'("Serie A" OR "bóng đá Ý")'},
- bundesliga:{p:"football",n:"Bundesliga",q:'(Bundesliga OR "bóng đá Đức")'},
- ligue1:{p:"football",n:"Ligue 1",q:'("Ligue 1" OR "bóng đá Pháp")'},
- ucl:{p:"football",n:"Champions League – Cúp C1",q:'("Champions League" OR "Cúp C1")'},
- uel:{p:"football",n:"Europa League – Cúp C2",q:'("Europa League" OR "Cúp C2")'},
- uecl:{p:"football",n:"Conference League – Cúp C3",q:'("Conference League" OR "Cúp C3")'},
- worldcup:{p:"football",n:"World Cup",q:'("World Cup" OR "World Cup 2026") bóng đá'},
- euro:{p:"football",n:"Euro",q:'(Euro OR "European Championship") bóng đá'},
- transfer:{p:"football",n:"Chuyển nhượng",q:'("chuyển nhượng bóng đá" OR "football transfer")'},
-
- volleyball:{p:"domestic",n:"Bóng chuyền",q:"bóng chuyền Việt Nam"},
- basketball:{p:"domestic",n:"Bóng rổ",q:"bóng rổ Việt Nam"},
- badminton:{p:"domestic",n:"Cầu lông",q:"cầu lông Việt Nam"},
- athletics:{p:"domestic",n:"Điền kinh",q:"điền kinh Việt Nam"},
- otherdom:{p:"domestic",n:"Các môn khác",q:"thể thao trong nước Việt Nam"},
-
- tennis:{p:"international",n:"Tennis",q:"tennis quốc tế"},
- nba:{p:"international",n:"NBA",q:"NBA basketball"},
- f1:{p:"international",n:"Formula 1",q:'("Formula 1" OR F1 racing)'},
- boxing:{p:"international",n:"Boxing",q:"boxing quốc tế"},
- olympics:{p:"international",n:"Olympics",q:"Olympics thể thao"},
- otherint:{p:"international",n:"Các môn quốc tế khác",q:"international sports news"},
-
- fixtures:{p:"fixtures",n:"Kết quả – lịch thi đấu",q:'("kết quả bóng đá" OR "lịch thi đấu bóng đá")'},
- analysis:{p:"analysis",n:"Nhận định – phân tích",q:'("nhận định bóng đá" OR "phân tích trận đấu")'}
+football:{p:"football",n:"Tất cả bóng đá"},
+vietnam:{p:"football",n:"Bóng đá Việt Nam"},
+epl:{p:"football",n:"Ngoại hạng Anh"},
+laliga:{p:"football",n:"La Liga"},
+seriea:{p:"football",n:"Serie A"},
+bundesliga:{p:"football",n:"Bundesliga"},
+ligue1:{p:"football",n:"Ligue 1"},
+ucl:{p:"football",n:"Champions League – Cúp C1"},
+uel:{p:"football",n:"Europa League – Cúp C2"},
+uecl:{p:"football",n:"Conference League – Cúp C3"},
+worldcup:{p:"football",n:"World Cup"},
+euro:{p:"football",n:"EURO"},
+national:{p:"football",n:"Đội tuyển quốc gia"},
+transfer:{p:"football",n:"Chuyển nhượng"},
+fixtures:{p:"football",n:"Lịch thi đấu"},
+results:{p:"football",n:"Kết quả bóng đá"},
+standings:{p:"football",n:"Bảng xếp hạng"},
+volleyball:{p:"sports",n:"Bóng chuyền"},
+basketball:{p:"sports",n:"Bóng rổ"},
+tennis:{p:"sports",n:"Tennis"},
+badminton:{p:"sports",n:"Cầu lông"},
+athletics:{p:"sports",n:"Điền kinh"},
+f1:{p:"sports",n:"Đua xe F1"},
+boxing:{p:"sports",n:"Boxing"},
+nba:{p:"sports",n:"NBA"},
+olympics:{p:"sports",n:"Olympics"},
+esports:{p:"sports",n:"Thể thao điện tử"},
+othersports:{p:"sports",n:"Các môn thể thao khác"},
+newsvn:{p:"news",n:"Tin trong nước"},
+newsworld:{p:"news",n:"Tin thế giới"},
+politics:{p:"news",n:"Chính trị – Xã hội"},
+economy:{p:"news",n:"Kinh tế"},
+law:{p:"news",n:"Pháp luật"},
+education:{p:"news",n:"Giáo dục"},
+life:{p:"news",n:"Đời sống"},
+finance:{p:"finance",n:"Tài chính"},
+stocks:{p:"finance",n:"Chứng khoán"},
+banking:{p:"finance",n:"Ngân hàng"},
+business:{p:"finance",n:"Doanh nghiệp"},
+markets:{p:"finance",n:"Thị trường"}
 };
 
 const MENUS={
- football:["football","vietnam","epl","laliga","seriea","bundesliga","ligue1","ucl","uel","uecl","worldcup","euro","transfer"],
- domestic:["volleyball","basketball","badminton","athletics","otherdom"],
- international:["tennis","nba","f1","boxing","olympics","otherint"],
- fixtures:["fixtures"],
- analysis:["analysis"]
+sports:["sportsall","volleyball","basketball","tennis","badminton","athletics","f1","boxing","nba","olympics","esports","othersports"],
+football:["football","vietnam","epl","laliga","seriea","bundesliga","ligue1","ucl","uel","uecl","worldcup","euro","national","transfer","fixtures","results","standings"],
+news:["newsall","newsvn","newsworld","politics","economy","law","education","life"],
+finance:["financeall","finance","stocks","banking","business","markets"]
+};
+
+const PNAME={
+home:"Tất cả tin mới nhất",
+sports:"Thể thao",
+football:"Bóng đá",
+news:"Tin tức",
+finance:"Tài chính – chứng khoán"
+};
+
+const GROUPS={
+sportsall:"sports",
+newsall:"news",
+financeall:"finance"
 };
 
 let data=[],cat="all",parent="home",keyword="";
-
+const cache=new Map();
 const $=id=>document.getElementById(id);
+
 const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({
- "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
 }[c]));
 
 function safe(s){
- try{
-  let u=new URL(s);
-  return /^https?:$/.test(u.protocol)?u.href:"";
- }catch(e){return ""}
+try{
+const u=new URL(s);
+return /^https?:$/.test(u.protocol)?u.href:"";
+}catch(e){return ""}
 }
 
 function text(s){
- let d=new DOMParser().parseFromString(s||"","text/html");
- return(d.body.textContent||"").replace(/\s+/g," ").trim();
+const d=new DOMParser().parseFromString(s||"","text/html");
+return(d.body.textContent||"").replace(/\s+/g," ").trim();
 }
 
-/* ẢNH DỰ PHÒNG THEO TỪNG NHÓM THỂ THAO */
+function label(id){
+return C[id]?.n||({
+all:"Tất cả",
+sportsall:"Tất cả thể thao",
+newsall:"Tất cả tin tức",
+financeall:"Tất cả tài chính – chứng khoán"
+}[id]||"Thể thao");
+}
+
 function fallback(id){
- let p=C[id]?.p||"football";
- let colors={
-  football:["#182235","#e21d2b","⚽"],
-  domestic:["#16434a","#e5b83b","🏅"],
-  international:["#172b4d","#42a5f5","🏆"],
-  fixtures:["#202630","#e21d2b","⚽"],
-  analysis:["#34233d","#e3a23b","📊"]
- }[p];
-
- let svg=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="550">
- <defs><linearGradient id="g"><stop stop-color="${colors[0]}"/><stop offset="1" stop-color="#080a0e"/></linearGradient></defs>
- <rect width="900" height="550" fill="url(#g)"/>
- <circle cx="730" cy="100" r="230" fill="${colors[1]}" opacity=".2"/>
- <text x="450" y="300" text-anchor="middle" font-size="125" fill="white">${colors[2]}</text>
- <text x="450" y="490" text-anchor="middle" font-family="Arial" font-size="25" fill="white">TIN THỂ THAO</text>
- </svg>`;
- return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
-}
-
-/* ƯU TIÊN ẢNH THẬT TỪ RSS */
-function imageOf(x){
- let h=(x.description||"")+" "+(x.content||"");
- let m=h.match(/<img[^>]+src=["']([^"']+)["']/i);
- for(let v of [x.thumbnail,x.enclosure?.link,m?.[1]]){
-  if(safe(v))return safe(v);
- }
- return "";
+const p=C[id]?.p||GROUPS[id]||"football";
+const icons={football:"⚽",sports:"🏅",news:"📰",finance:"📈"};
+const colors={
+football:["#182235","#e21d2b"],
+sports:["#16434a","#e5b83b"],
+news:["#243047","#56a5d8"],
+finance:["#183b32","#35b779"]
+};
+const c=colors[p]||colors.football;
+const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="550">
+<defs><linearGradient id="g"><stop stop-color="${c[0]}"/><stop offset="1" stop-color="#080a0e"/></linearGradient></defs>
+<rect width="900" height="550" fill="url(#g)"/>
+<circle cx="730" cy="100" r="230" fill="${c[1]}" opacity=".22"/>
+<text x="450" y="310" text-anchor="middle" font-size="145" fill="white">${icons[p]||"🏆"}</text>
+<text x="450" y="490" text-anchor="middle" font-family="Arial" font-size="27" fill="white">${esc(label(id)).toUpperCase()}</text>
+</svg>`;
+return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
 }
 
 function img(src,title,id){
- return `<img src="${safe(src)||fallback(id)}"
- alt="${esc(title)}" loading="lazy"
- onerror="this.onerror=null;this.src='${fallback(id)}'">`;
+return `<img src="${safe(src)||fallback(id)}" alt="${esc(title)}" loading="lazy" onerror="this.onerror=null;this.src='${fallback(id)}'">`;
 }
 
 function date(v){
- let d=new Date(v);
- return !v||isNaN(d)?"Mới cập nhật":d.toLocaleString("vi-VN");
+const d=new Date(v);
+return !v||isNaN(d)?"Mới cập nhật":d.toLocaleString("vi-VN");
 }
 
-function label(id){return C[id]?.n||"Thể thao"}
+function setStatus(s){
+$("newsStatus").textContent=s;
+}
+
+async function loadIds(ids){
+const key=cat==="all"
+?(parent==="home"?"home":parent)
+:(GROUPS[cat]||cat);
+
+if(cache.has(key)){
+merge(cache.get(key));
+render();
+return;
+}
+
+setStatus("Đang tải tin từ hệ thống THETHAO24H...");
+
+try{
+const response=await fetch("/api/news?category="+encodeURIComponent(key),{
+headers:{"Accept":"application/json"}
+});
+
+if(!response.ok)throw new Error("API tin tức trả về HTTP "+response.status);
+
+const result=await response.json();
+
+if(!Array.isArray(result.items)){
+throw new Error("Dữ liệu API không đúng định dạng");
+}
+
+cache.set(key,result.items);
+merge(result.items);
+
+const failed=Number(result.failed||0);
+
+setStatus("Đã cập nhật "+result.items.length+" tin"+
+(failed?" · "+failed+" nguồn tạm thời chưa phản hồi":"")+
+(result.cached?" · dữ liệu lưu dự phòng":"")+".");
+}catch(error){
+setStatus("Không tải được tin mới: "+error.message);
+if(!data.length){
+$("newsGrid").innerHTML='<div class="empty">Chưa kết nối được máy chủ tin tức. Vui lòng thử tải lại sau.</div>';
+}
+}
+}
+
+function merge(items){
+const map=new Map(data.map(x=>[x.link,x]));
+items.forEach(x=>{
+if(x.title&&x.link&&!map.has(x.link))map.set(x.link,x);
+});
+data=[...map.values()].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
+}
+
+function idsForSelection(){
+if(cat==="all"){
+if(parent==="home")return Object.keys(C);
+return Object.keys(C).filter(id=>C[id].p===parent);
+}
+if(GROUPS[cat]){
+return Object.keys(C).filter(id=>C[id].p===GROUPS[cat]);
+}
+if(cat==="football"){
+return Object.keys(C).filter(id=>C[id].p==="football");
+}
+return C[cat]?[cat]:[];
+}
 
 function drawSub(p){
- let s=$("sub");
- if(!MENUS[p]){
-  s.classList.remove("show");
-  $("subItems").innerHTML="";
-  return;
- }
- s.classList.add("show");
- $("subItems").innerHTML=MENUS[p].map(id=>
-  `<button data-cat="${id}" class="${cat===id?"active":""}">${esc(label(id))}</button>`
- ).join("");
-
- $("subItems").querySelectorAll("button").forEach(b=>{
-  b.onclick=()=>choose(b.dataset.cat,p);
- });
+const box=$("sub");
+if(!MENUS[p]){
+box.classList.remove("show");
+$("subItems").innerHTML="";
+return;
 }
+box.classList.add("show");
+$("subItems").innerHTML=MENUS[p].map(id=>
+`<button data-cat="${id}" class="${cat===id?"active":""}">${esc(label(id))}</button>`
+).join("");
 
-function chooseParent(p){
- parent=p;
- document.querySelectorAll("[data-parent]").forEach(b=>
-  b.classList.toggle("active",b.dataset.parent===p)
- );
- cat=p==="home"?"all":MENUS[p][0];
- drawSub(p);
- headings();
- render();
- $("latest").scrollIntoView({behavior:"smooth"});
-}
-
-function choose(id,p){
- cat=id;
- parent=p;
- document.querySelectorAll("[data-parent]").forEach(b=>
-  b.classList.toggle("active",b.dataset.parent===p)
- );
- drawSub(p);
- headings();
- render();
- $("latest").scrollIntoView({behavior:"smooth"});
+$("subItems").querySelectorAll("button").forEach(b=>{
+b.onclick=()=>choose(b.dataset.cat,p);
+});
 }
 
 function headings(){
- $("newsTitle").textContent=cat==="all"?"Tin thể thao mới nhất":label(cat);
- $("heroTitle").textContent=cat==="all"?"Tâm điểm thể thao":label(cat);
- $("panelTitle").textContent=cat==="all"?"Khám phá chuyên mục":"Tin mới: "+label(cat);
+const name=cat==="all"?(PNAME[parent]||"Tin mới nhất"):label(cat);
+$("newsTitle").textContent=cat==="all"
+?(parent==="home"?"Tin mới nhất":"Tin mới: "+name):label(cat);
+$("heroTitle").textContent=cat==="all"
+?(parent==="home"?"Tâm điểm hôm nay":name):label(cat);
+$("panelTitle").textContent=cat==="all"
+?"Khám phá chuyên mục":"Tin mới: "+label(cat);
 }
 
 function filtered(){
- return data.filter(x=>
-  (cat==="all"||x.category===cat||(cat==="football"&&x.parent==="football"))&&
-  (!keyword||(x.title+" "+x.description).toLowerCase().includes(keyword))
- );
-}
+let group=GROUPS[cat]||((cat==="football")?"football":null);
+if(cat==="all"&&parent!=="home")group=parent;
 
-/* TẢI TỪNG NGUỒN RSS THEO CHUYÊN MỤC */
-async function feed(id,c){
- let url="https://news.google.com/rss/search?q="+encodeURIComponent(c.q)+"&hl=vi&gl=VN&ceid=VN:vi";
- let r=await fetch(RSS+encodeURIComponent(url));
- if(!r.ok)throw Error("RSS");
- let j=await r.json();
- if(j.status!=="ok")throw Error("RSS");
-
- return(j.items||[]).map(x=>({
-  title:text(x.title),
-  description:text(x.description||x.content),
-  link:safe(x.link),
-  image:imageOf(x),
-  date:x.pubDate,
-  category:id,
-  parent:c.p,
-  source:x.author||c.n
- }));
-}
-
-async function load(){
- $("newsStatus").textContent="Đang tải các nguồn RSS...";
- let all=[],good=0,bad=0,entries=Object.entries(C);
-
- for(let i=0;i<entries.length;i+=4){
-  let batch=await Promise.allSettled(
-   entries.slice(i,i+4).map(([id,c])=>feed(id,c))
-  );
-  batch.forEach(x=>{
-   if(x.status==="fulfilled"){
-    good++;
-    all.push(...x.value);
-   }else bad++;
-  });
- }
-
- let map=new Map();
- all.forEach(x=>{
-  if(x.title&&x.link)map.set(x.link,x);
- });
-
- data=[...map.values()].sort((a,b)=>
-  new Date(b.date||0)-new Date(a.date||0)
- );
-
- $("newsStatus").textContent=data.length
-  ?`Đã tải ${data.length} tin từ ${good} nhóm nguồn${bad?`; ${bad} nhóm lỗi`:""}.`
-  :"Không tải được RSS; vui lòng thử lại sau.";
-
- if(data.length){
-  $("breaking").textContent=data[0].title;
-  hot();
- }
- render();
+return data.filter(x=>
+(cat==="all"
+?(parent==="home"||x.parent===group)
+:x.category===cat||(group&&x.parent===group)
+)&&(!keyword||(x.title+" "+x.description).toLowerCase().includes(keyword))
+);
 }
 
 function card(x){
- return `<article class="card">
- <a href="${x.link}" target="_blank" rel="noopener">${img(x.image,x.title,x.category)}</a>
- <div class="body">
- <div class="cat">${esc(label(x.category))}</div>
- <h3><a href="${x.link}" target="_blank" rel="noopener">${esc(x.title)}</a></h3>
- <p>${esc(x.description.slice(0,150))}${x.description.length>150?"…":""}</p>
- <div class="meta">${esc(date(x.date))}</div>
- </div></article>`;
+return `<article class="card">
+<a href="${x.link}" target="_blank" rel="noopener">${img(x.image,x.title,x.category)}</a>
+<div class="body">
+<div class="cat">${esc(label(x.category))} · ${esc(x.source||"")}</div>
+<h3><a href="${x.link}" target="_blank" rel="noopener">${esc(x.title)}</a></h3>
+<p>${esc((x.description||"").slice(0,150))}${(x.description||"").length>150?"…":""}</p>
+<div class="meta">${esc(date(x.date))}</div>
+</div>
+</article>`;
 }
 
 function hero(){
- let a=filtered();
- if(!a.length)a=data;
- if(!a.length)return;
+const a=filtered();
 
- let x=a[0];
+if(!a.length){
+$("heroMain").innerHTML=`<div class="caption">
+<span class="tag">${esc(label(cat))}</span>
+<h1>Chưa có tin trong chuyên mục này</h1>
+<p>Hãy thử tải lại sau ít phút.</p>
+</div>`;
+$("heroSide").innerHTML="";
+return;
+}
 
- $("heroMain").innerHTML=`
- <a href="${x.link}" target="_blank" rel="noopener">
- ${img(x.image,x.title,x.category)}
- <div class="caption">
- <span class="tag">${esc(label(x.category))}</span>
- <h1>${esc(x.title)}</h1>
- <p>${esc(x.description.slice(0,180))}</p>
- </div></a>`;
+const x=a[0];
 
- $("heroSide").innerHTML=a.slice(1,5).map(x=>`
- <article class="side">
- <a href="${x.link}" target="_blank" rel="noopener">${img(x.image,x.title,x.category)}</a>
- <div>
- <small>${esc(label(x.category))}</small>
- <h3><a href="${x.link}" target="_blank" rel="noopener">${esc(x.title)}</a></h3>
- </div></article>
- `).join("")||'<div class="empty">Chưa có tin phụ.</div>';
+$("heroMain").innerHTML=`<a href="${x.link}" target="_blank" rel="noopener">
+${img(x.image,x.title,x.category)}
+<div class="caption">
+<span class="tag">${esc(label(x.category))}</span>
+<h1>${esc(x.title)}</h1>
+<p>${esc((x.description||"").slice(0,180))}</p>
+</div>
+</a>`;
+
+$("heroSide").innerHTML=a.slice(1,5).map(x=>
+`<article class="side">
+<a href="${x.link}" target="_blank" rel="noopener">${img(x.image,x.title,x.category)}</a>
+<div><small>${esc(label(x.category))}</small>
+<h3><a href="${x.link}" target="_blank" rel="noopener">${esc(x.title)}</a></h3>
+</div>
+</article>`
+).join("");
 }
 
 function hot(){
- $("hot").innerHTML=data.slice(0,7).map((x,i)=>`
- <a class="hot" href="${x.link}" target="_blank" rel="noopener">
- <strong>0${i+1}</strong>
- <div><h4>${esc(x.title)}</h4><small>${esc(label(x.category))}</small></div>
- </a>
- `).join("");
+const a=[...data].slice(0,7);
+$("hot").innerHTML=a.map((x,i)=>
+`<a class="hot" href="${x.link}" target="_blank" rel="noopener">
+<strong>0${i+1}</strong>
+<div><h4>${esc(x.title)}</h4><small>${esc(label(x.category))}</small></div>
+</a>`
+).join("")||'<p class="muted">Chưa có tin.</p>';
 }
 
 function render(){
- let a=filtered();
+const a=filtered();
 
- $("newsGrid").innerHTML=a.length
-  ?a.slice(0,24).map(card).join("")
-  :'<div class="empty">Không tìm thấy tin phù hợp.</div>';
+$("newsGrid").innerHTML=a.length
+?a.slice(0,24).map(card).join("")
+:'<div class="empty">Chưa có tin trong chuyên mục này.</div>';
 
- $("panelNews").innerHTML=a.length
-  ?a.slice(0,4).map(card).join("")
-  :'<div class="empty">Chưa có tin trong chuyên mục này.</div>';
+$("panelNews").innerHTML=a.length
+?a.slice(0,4).map(card).join("")
+:'<div class="empty">Tin theo chuyên mục sẽ xuất hiện tại đây.</div>';
 
- if(data.length)hero();
+hero();
+hot();
+
+if(a.length){
+$("breaking").textContent=a[0].title;
+}
 }
 
-/* TÌM KIẾM */
-$("mainNav").querySelectorAll("button").forEach(b=>
- b.onclick=()=>chooseParent(b.dataset.parent)
+async function chooseParent(p){
+parent=p;
+cat="all";
+
+document.querySelectorAll("[data-parent]").forEach(b=>
+b.classList.toggle("active",b.dataset.parent===p)
 );
 
+drawSub(p);
+headings();
+render();
+
+await loadIds(idsForSelection());
+
+headings();
+render();
+$("latest").scrollIntoView({behavior:"smooth"});
+}
+
+async function choose(id,p){
+cat=id;
+parent=p;
+
+document.querySelectorAll("[data-parent]").forEach(b=>
+b.classList.toggle("active",b.dataset.parent===p)
+);
+
+drawSub(p);
+headings();
+render();
+
+await loadIds(idsForSelection());
+
+render();
+$("latest").scrollIntoView({behavior:"smooth"});
+}
+
+$("mainNav").querySelectorAll("button").forEach(b=>{
+b.onclick=()=>chooseParent(b.dataset.parent);
+});
+
 $("search").onsubmit=e=>{
- e.preventDefault();
- keyword=$("q").value.trim().toLowerCase();
- render();
- $("latest").scrollIntoView({behavior:"smooth"});
+e.preventDefault();
+keyword=$("q").value.trim().toLowerCase();
+render();
+$("latest").scrollIntoView({behavior:"smooth"});
 };
 
 $("q").oninput=()=>{
- keyword=$("q").value.trim().toLowerCase();
- render();
+keyword=$("q").value.trim().toLowerCase();
+render();
 };
 
-/* API TỶ SỐ VÀ BẢNG XẾP HẠNG */
 async function api(path){
- let r=await fetch(API+path,{headers:{"X-Auth-Token":API_KEY}});
- if(!r.ok)throw Error("API "+r.status);
- return r.json();
+const r=await fetch(API+path,{
+headers:{"X-Auth-Token":API_KEY}
+});
+if(!r.ok)throw Error("API "+r.status);
+return r.json();
 }
 
 async function matches(){
- if(!API_KEY){
-  $("matches").innerHTML='<div class="emptyScore">Chưa cấu hình API tỷ số. Không hiển thị dữ liệu trận đấu giả.</div>';
-  $("matchStatus").textContent="Đang chờ cấu hình API.";
-  return;
- }
+if(!API_KEY){
+$("matches").innerHTML='<div class="emptyScore">Chưa cấu hình API tỷ số. Trang không hiển thị dữ liệu trận đấu giả.</div>';
+$("matchStatus").textContent="Đang chờ cấu hình API.";
+return;
+}
 
- try{
-  let d=await api(`/competitions/${$("competition").value}/matches?status=SCHEDULED,LIVE,IN_PLAY,PAUSED,FINISHED`);
+try{
+const d=await api(`/competitions/${$("competition").value}/matches?status=SCHEDULED,LIVE,IN_PLAY,PAUSED,FINISHED`);
 
-  $("matches").innerHTML=(d.matches||[]).slice(0,9).map(m=>{
-   let s=m.score?.fullTime;
-   let h=m.homeTeam?.shortName||m.homeTeam?.name;
-   let a=m.awayTeam?.shortName||m.awayTeam?.name;
+$("matches").innerHTML=(d.matches||[]).slice(0,9).map(m=>{
+const s=m.score?.fullTime;
+const h=m.homeTeam?.shortName||m.homeTeam?.name;
+const a=m.awayTeam?.shortName||m.awayTeam?.name;
 
-   return `<div class="match">
-   <small>${esc(m.competition?.name||"Bóng đá")}</small>
-   <div class="teams">
-   <span>${esc(h)}</span>
-   <b class="val">${s?`${s.home??"-"} : ${s.away??"-"}`:"VS"}</b>
-   <span>${esc(a)}</span>
-   </div>
-   <time>${m.status==="FINISHED"?"ĐÃ KẾT THÚC":date(m.utcDate)}</time>
-   </div>`;
-  }).join("")||'<div class="emptyScore">Không có trận đấu trong dữ liệu trả về.</div>';
+return `<div class="match">
+<small>${esc(m.competition?.name||"Bóng đá")}</small>
+<div class="teams">
+<span>${esc(h)}</span>
+<b class="val">${s?`${s.home??"-"} : ${s.away??"-"}`:"VS"}</b>
+<span>${esc(a)}</span>
+</div>
+<time>${m.status==="FINISHED"?"ĐÃ KẾT THÚC":date(m.utcDate)}</time>
+</div>`;
+}).join("")||'<div class="emptyScore">Không có trận đấu trong dữ liệu trả về.</div>';
 
-  $("matchStatus").textContent="Nguồn: football-data.org.";
- }catch(e){
-  $("matches").innerHTML='<div class="emptyScore">Không tải được dữ liệu; kiểm tra token và quyền giải đấu.</div>';
-  $("matchStatus").textContent=e.message;
- }
+$("matchStatus").textContent="Nguồn: football-data.org.";
+}catch(e){
+$("matches").innerHTML='<div class="emptyScore">Không tải được dữ liệu; kiểm tra token và quyền giải đấu.</div>';
+$("matchStatus").textContent=e.message;
+}
 }
 
 async function standings(){
- if(!API_KEY){
-  $("standings").innerHTML='<p class="muted">Chưa kết nối API bảng xếp hạng.</p>';
-  return;
- }
-
- try{
-  let d=await api(`/competitions/${$("standingComp").value}/standings`);
-  let t=d.standings?.find(x=>x.type==="TOTAL")?.table||[];
-
-  $("standings").innerHTML=t.length?`
-  <table class="standings">
-  <thead><tr><th>HẠNG</th><th>ĐỘI</th><th>Đ</th><th>HS</th><th>ĐIỂM</th></tr></thead>
-  <tbody>${t.map(x=>`
-  <tr>
-  <td>${x.position}</td>
-  <td>${esc(x.team.shortName||x.team.name)}</td>
-  <td>${x.playedGames}</td>
-  <td>${x.goalDifference}</td>
-  <td><b>${x.points}</b></td>
-  </tr>`).join("")}</tbody></table>`
-  :'<p class="muted">Nguồn chưa có bảng xếp hạng.</p>';
-
- }catch(e){
-  $("standings").innerHTML='<p class="muted">Không tải được bảng xếp hạng. Kiểm tra API.</p>';
-  $("standingStatus").textContent=e.message;
- }
+if(!API_KEY){
+$("standings").innerHTML='<p class="muted">Chưa kết nối API bảng xếp hạng.</p>';
+return;
 }
 
-/* KHỞI ĐỘNG WEBSITE */
+try{
+const d=await api(`/competitions/${$("standingComp").value}/standings`);
+const t=d.standings?.find(x=>x.type==="TOTAL")?.table||[];
+
+$("standings").innerHTML=t.length
+?`<table class="standings">
+<thead><tr><th>HẠNG</th><th>ĐỘI</th><th>Đ</th><th>HS</th><th>ĐIỂM</th></tr></thead>
+<tbody>${t.map(x=>`<tr>
+<td>${x.position}</td>
+<td>${esc(x.team.shortName||x.team.name)}</td>
+<td>${x.playedGames}</td>
+<td>${x.goalDifference}</td>
+<td><b>${x.points}</b></td>
+</tr>`).join("")}</tbody></table>`
+:'<p class="muted">Nguồn chưa có bảng xếp hạng.</p>';
+}catch(e){
+$("standings").innerHTML='<p class="muted">Không tải được bảng xếp hạng. Kiểm tra API.</p>';
+$("standingStatus").textContent=e.message;
+}
+}
+
 $("competition").onchange=matches;
 $("standingComp").onchange=standings;
 
 $("date").textContent=new Date().toLocaleDateString("vi-VN",{
- weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"
+weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"
 });
 
+// Trang chủ gọi API trung gian Vercel.
 chooseParent("home");
-load();
 matches();
 standings();
 
-setInterval(load,15*60*1000);
 setInterval(()=>{
- matches();
- standings();
-},5*60*1000);
+cache.clear();
+loadIds(idsForSelection()).then(render);
+},15*60*1000);
+
 </script>
 </body>
 </html>
