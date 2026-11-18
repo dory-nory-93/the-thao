@@ -130,8 +130,15 @@ async function fetchInBatches(ids, size=3) {
         output.push(...r.value);
         memoryCache.set(batch[index], {time:Date.now(),items:r.value});
       } else {
-        failed++;
-        const old = memoryCache.get(batch[index]);
+  failed++;
+
+  console.error(
+    "[RSS ERROR]",
+    batch[index],
+    r.reason?.message || r.reason
+  );
+
+  const old = memoryCache.get(batch[index]);
         if (old?.items) output.push(...old.items);
       }
     });
