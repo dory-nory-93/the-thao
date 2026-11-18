@@ -87,11 +87,24 @@ function parseRss(xml, id) {
     const title = stripHtml(tag(block,"title"));
     const descriptionRaw = tag(block,"description") || tag(block,"encoded");
     const link = safeUrl(tag(block,"link"));
-    const enclosure = block.match(/<enclosure\b[^>]*\burl=["']([^"']+)["']/i);
-    const media = block.match(/<(?:media:)?content\b[^>]*\burl=["']([^"']+)["']/i);
-    const imageTag = descriptionRaw.match(/<img[^>]+src=["']([^"']+)["']/i);
-    const source = tag(block,"source") || c.n;
-    const image = safeUrl(enclosure?.[1] || media?.[1] || imageTag?.[1] || "");
+    
+    const enclosure = block.match(/<enclosure\b[^>]*?\burl=["']([^"']+)["']/i);
+
+    const media = block.match(/<(?:media:content|media:thumbnail)\b[^>]*?\burl=["']([^"']+)["']/i);
+
+    const descriptionHtml = descriptionRaw
+      .replace(/&lt;/gi, "<")
+      .replace(/&gt;/gi, ">")
+      .replace(/&quot;/gi, '"')
+      .replace(/&#39;|&apos;/gi, "'")
+      .replace(/&amp;/gi, "&");
+
+    const imageTag = descriptionHtml.match(/<img\b[^>]*?\bsrc=["']([^"']+)["']/i);
+
+    const image = safeUrl(
+      enclosure?.[1] || media?.[1] || imageTag?.[1] || ""
+    );
+
     return {title, description:stripHtml(descriptionRaw), link, image,
       date:tag(block,"pubDate"), category:id, parent:c.p, source};
   }).filter(x => x.title && x.link);
