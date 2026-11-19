@@ -95,11 +95,13 @@ function getTag(xml, tag) {
   const match = xml.match(
     new RegExp(`<${escaped}(?:\\s[^>]*)?>([\\s\\S]*?)</${escaped}>`, "i")
   );
+
   return match ? cleanText(match[1]) : "";
 }
 
 function parseRSS(xml, category) {
-  const blocks = xml.match(/<item(?:\s[^>]*)?>[\s\S]*?<\/item>/gi) || [];
+  const blocks =
+    xml.match(/<item(?:\s[^>]*)?>[\s\S]*?<\/item>/gi) || [];
 
   return blocks.map(item => {
     const title = getTag(item, "title");
@@ -171,10 +173,105 @@ function uniqueArticles(articles) {
     .sort((a, b) => b.timestamp - a.timestamp);
 }
 
-export default async function handler(req, res) {
-  res.setHeader("Cache-Control", "s-maxage=180, stale-while-revalidate=300");
+// KẾT NỐI VÀ LƯU TIN VÀO SUPABASE
+async function saveToSupabase(articles) {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-  const category = String(req.query.category || "home").toLowerCase();
+  if (!supabaseUrl || !supabaseKey) {
+    throw new Error("Thiếu cấu hình Supabase trên Vercel");
+  }
+
+  const baseUrl = supabaseUrl.replace(/\/$/, "");
+  let saved = 0;
+  let skipped = 0;
+  let failed = 0;
+
+  for (const article of articles) {
+    try {
+      // Kiểm tra bài viết đã tồn tại hay chưa
+      const checkUrl = new URL(
+        `${baseUrl}/rest/v1/articles`
+      );
+
+      checkUrl.searchParams.set("select", "id");
+      checkUrl.searchParams.set("link", `eq.${article.link}`);
+      checkUrl.searchParams.set("limit", "1");
+
+      const headers = {
+        "apikey": supabaseKey,
+        "Authorization": `Bearer ${supabaseKey}`,
+        "Content-Type": "application/json"
+      };
+
+      const checkResponse = await fetch(checkUrl, {
+        method: "GET",
+        headers
+      });
+
+      if (!checkResponse.ok) {
+        throw new Error(
+          `Kiểm tra bài viết thất bại: ${await checkResponse.text()}`
+        );
+      }
+
+      const existing = await checkResponse.json();
+
+      if (existing.length > 0) {
+        skipped++;
+        continue;
+      }
+
+      // Lưu bài viết mới dưới dạng bản nháp
+      const record = {
+        title: article.title,
+        description: article.description,
+        content: article.description,
+        link: article.link,
+        source: article.source,
+        image: article.image || null,
+        category: article.category,
+        status: "draft"
+      };
+
+      const insertResponse = await fetch(
+        `${baseUrl}/rest/v1/articles`,
+        {
+          method: "POST",
+          headers: {
+            ...headers,
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify(record)
+        }
+      );
+
+      if (!insertResponse.ok) {
+        throw new Error(
+          `Lưu bài viết thất bại: ${await insertResponse.text()}`
+        );
+      }
+
+      saved++;
+    } catch (error) {
+      failed++;
+      console.error("Supabase save error:", error.message);
+    }
+  }
+
+  return { saved, skipped, failed };
+}
+
+export default async function handler(req, res) {
+  res.setHeader(
+    "Cache-Control",
+    "s-maxage=180, stale-while-revalidate=300"
+  );
+
+  const category = String(
+    req.query.category || "home"
+  ).toLowerCase();
+
   const limit = Math.min(
     Math.max(parseInt(req.query.limit, 10) || 60, 1),
     100
@@ -193,12 +290,24 @@ export default async function handler(req, res) {
   const cached = cache.get(category);
 
   if (cached && Date.now() - cached.time < CACHE_TIME) {
+    let saveResult = {
+      saved: 0,
+      skipped: 0,
+      failed: 0
+    };
+
+    try {
+      saveResult = await saveToSupabase(cached.articles);
+    } catch (error) {
+      console.error("Supabase error:", error.message);
+    }
+
     return res.status(200).json({
       success: true,
       category,
       total: cached.articles.length,
-      failed: 0,
       cached: true,
+      supabase: saveResult,
       articles: cached.articles.slice(0, limit)
     });
   }
@@ -208,41 +317,49 @@ export default async function handler(req, res) {
   );
 
   const articles = [];
-  let failed = 0;
+  let failedFeeds = 0;
 
   for (const result of results) {
     if (result.status === "fulfilled") {
       articles.push(...result.value);
     } else {
-      failed++;
+      failedFeeds++;
+      console.error("RSS error:", result.reason);
     }
   }
 
   const unique = uniqueArticles(articles);
+
+  let saveResult = {
+    saved: 0,
+    skipped: 0,
+    failed: 0
+  };
+
+  let supabaseError = null;
 
   if (unique.length > 0) {
     cache.set(category, {
       time: Date.now(),
       articles: unique
     });
-  } else if (cached) {
-    return res.status(200).json({
-      success: true,
-      category,
-      total: cached.articles.length,
-      failed,
-      cached: true,
-      warning: "RSS tạm thời không phản hồi, đang sử dụng dữ liệu đã lưu",
-      articles: cached.articles.slice(0, limit)
-    });
+
+    try {
+      saveResult = await saveToSupabase(unique);
+    } catch (error) {
+      supabaseError = error.message;
+      console.error("Supabase error:", error.message);
+    }
   }
 
   return res.status(200).json({
     success: unique.length > 0,
     category,
     total: unique.length,
-    failed,
+    failed: failedFeeds,
     cached: false,
+    supabase: saveResult,
+    supabaseError,
     warning: unique.length === 0
       ? "Không lấy được dữ liệu RSS. Vui lòng thử lại sau."
       : null,
