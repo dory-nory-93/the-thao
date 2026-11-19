@@ -1,699 +1,1405 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#111318">
-<meta name="description" content="THETHAO24H - Tin thể thao, bóng đá, thời sự và tài chính.">
-<title>THETHAO24H | Tin thể thao 24 giờ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="THETHAO24H - Tin tức mới nhất, bóng đá, thể thao, kinh tế, tài chính và chứng khoán.">
+<meta name="theme-color" content="#101827">
+<title>THETHAO24H - Tin tức 24 giờ</title>
+
 <style>
-:root{--r:#e21d2b;--d:#111318;--ink:#20242b;--mut:#747b85;--bg:#f1f2f4}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}
-a{color:inherit;text-decoration:none}
-button,input,select{font:inherit}
-.wrap{max-width:1240px;margin:auto;padding:0 18px}
-.top{background:#08090c;color:#cbd0d7;padding:8px 0;font-size:11px}
-.top .wrap{display:flex;justify-content:space-between}
-.mast{background:white}
-.mast .wrap{min-height:100px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-size:38px;font-weight:1000;letter-spacing:-2px;color:var(--r)}
-.logo span{color:var(--d)}
-.slogan{font-size:10px;color:#777;letter-spacing:2px;font-weight:bold}
-.search{display:flex;width:350px}
-.search input{min-width:0;flex:1;padding:12px;border:1px solid #ddd}
-.search button{border:0;background:var(--r);color:white;font-weight:bold;padding:0 16px;cursor:pointer}
-.nav{background:var(--d);border-bottom:4px solid var(--r)}
-.nav .wrap{display:flex;overflow:auto}
-.nav button{white-space:nowrap;background:none;border:0;color:white;padding:16px 18px;font-size:12px;font-weight:bold;cursor:pointer}
-.nav button.active,.nav button:hover{background:var(--r)}
-.sub{display:none;background:#fff;border-bottom:1px solid #ddd}
-.sub.show{display:block}
-.sub .wrap{display:flex;gap:8px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
-.sub button{padding:8px 11px;border:1px solid #ddd;background:#f8f8f8;font-size:11px;font-weight:bold;cursor:pointer}
-.sub button.active,.sub button:hover{background:var(--r);color:white;border-color:var(--r)}
-.breaking{display:flex;background:white;margin:18px 0;align-items:center}
-.breaking b{background:var(--r);color:white;padding:14px;font-size:11px;white-space:nowrap}
-.breaking span{padding:10px 14px;font-size:12px;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.heading{border-left:5px solid var(--r);padding-left:12px;margin:24px 0 14px;display:flex;justify-content:space-between;align-items:center}
-.heading h2{font-size:20px;text-transform:uppercase;margin:0}
-.heading a{font-size:11px;color:var(--r);font-weight:bold}
-.hero{display:grid;grid-template-columns:2fr 1fr;gap:16px}
-.heroMain{position:relative;min-height:390px;background:#202630;overflow:hidden}
-.heroMain img{width:100%;height:390px;object-fit:cover;display:block}
-.heroMain:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#000e);pointer-events:none}
-.caption{position:absolute;z-index:1;bottom:0;padding:23px;color:white}
-.tag{background:var(--r);padding:6px 9px;font-size:10px;font-weight:bold}
-.caption h1{font-size:27px;line-height:1.3;margin:12px 0}
-.caption p{font-size:12px;color:#eee}
-.heroSide{display:flex;flex-direction:column;gap:10px}
-.side{background:white;padding:9px;display:grid;grid-template-columns:110px 1fr;gap:10px;min-height:105px}
-.side img{width:110px;height:88px;object-fit:cover}
-.side small,.cat{font-size:10px;color:var(--r);font-weight:bold}
-.side h3{font-size:13px;line-height:1.4;margin:5px 0}
-.score{margin-top:26px;background:var(--d);color:white;padding:18px;border-top:4px solid var(--r)}
-.scoreHead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.scoreHead h2{font-size:18px}
-.scoreHead select{padding:9px}
-.scoreGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.match{background:#222831;padding:14px;border:1px solid #343b45}
-.match small{color:#bbc2cb;font-size:10px}
-.teams{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:12px;font-weight:bold;margin-top:10px}
-.val{font-size:19px;white-space:nowrap}
-.match time{display:block;color:#ff6974;font-size:10px;margin-top:10px}
-.emptyScore{grid-column:1/-1;background:#222831;padding:15px;font-size:12px;line-height:1.6}
-.layout{display:grid;grid-template-columns:2fr 1fr;gap:22px;margin-top:24px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.card{background:white;overflow:hidden}
-.card img{width:100%;height:185px;object-fit:cover;display:block;background:#ddd}
-.body{padding:13px}
-.card h3{font-size:15px;line-height:1.45;margin:7px 0}
-.card p{font-size:12px;line-height:1.5;color:var(--mut)}
-.meta{font-size:10px;color:#9298a1}
-.box{background:white;padding:16px;margin-bottom:16px}
-.box h3{font-size:15px;border-bottom:2px solid var(--r);padding-bottom:10px;margin:0 0 10px}
-.hot{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid #eee}
-.hot strong{font-size:23px;color:var(--r)}
-.hot h4{font-size:12px;line-height:1.4;margin:0}
-.hot small,.muted{font-size:10px;color:var(--mut)}
-.standings{width:100%;border-collapse:collapse;font-size:11px}
-.standings th{background:var(--d);color:white;padding:8px 4px}
-.standings td{padding:8px 4px;text-align:center;border-bottom:1px solid #eee}
-.standings td:nth-child(2){text-align:left}
-.panel{background:white;padding:17px;margin-top:28px}
-.status{font-size:10px;color:var(--mut);margin:8px 0}
-.loading,.empty{grid-column:1/-1;background:white;padding:24px;text-align:center;color:var(--mut);font-size:12px}
-footer{margin-top:42px;background:var(--d);color:white;padding:30px 0}
-footer p{font-size:11px;color:#adb4bd;line-height:1.7;max-width:580px}
-.foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.copy{border-top:1px solid #343a43;padding-top:14px;color:#9299a2;font-size:10px;margin-top:20px}
-@media(max-width:850px){
-.hero,.layout{grid-template-columns:1fr}
-.heroSide{display:grid;grid-template-columns:1fr 1fr}
-.scoreGrid{grid-template-columns:repeat(2,1fr)}
+:root {
+  --dark: #101827;
+  --dark2: #182438;
+  --red: #e32636;
+  --text: #202b3c;
+  --muted: #778397;
+  --bg: #f2f4f7;
+  --white: #ffffff;
+  --border: #e6eaf0;
+  --blue: #1769aa;
 }
-@media(max-width:560px){
-.mast .wrap{align-items:flex-start;flex-direction:column;padding:16px 18px}
-.logo{font-size:32px}
-.search{width:100%}
-.heroMain,.heroMain img{height:300px;min-height:300px}
-.caption{padding:16px}
-.caption h1{font-size:20px}
-.heroSide{display:flex}
-.grid,.scoreGrid{grid-template-columns:1fr}
-.heading h2{font-size:16px}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.container {
+  width: min(1200px, 94%);
+  margin: auto;
+}
+
+/* TOP BAR */
+
+.topbar {
+  background: #0b1220;
+  color: #b8c3d4;
+  font-size: 12px;
+  padding: 8px 0;
+}
+
+.topbar-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* HEADER */
+
+.header {
+  background: var(--dark);
+  color: white;
+  padding: 23px 0;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  font-size: 33px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--red);
+}
+
+.logo small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #aab5c6;
+  font-weight: 500;
+  margin-top: -4px;
+}
+
+.search {
+  display: flex;
+  width: min(390px, 45%);
+  background: #263449;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #34435a;
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  padding: 11px 13px;
+  background: transparent;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.search input::placeholder {
+  color: #aab5c6;
+}
+
+.search button {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 0 16px;
+}
+
+/* NAVIGATION */
+
+.nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  position: relative;
+  z-index: 10;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-item {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.nav-link {
+  display: block;
+  padding: 15px 17px;
+  border: none;
+  background: transparent;
+  color: #283447;
+  font-weight: 800;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--red);
+}
+
+.nav-link.active {
+  box-shadow: inset 0 -3px var(--red);
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background: white;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 25px rgba(0,0,0,.12);
+  border-radius: 0 0 6px 6px;
+  padding: 7px;
+  z-index: 20;
+}
+
+.nav-item:hover .dropdown {
+  display: block;
+}
+
+.dropdown button {
+  display: block;
+  width: 100%;
+  border: none;
+  background: white;
+  text-align: left;
+  padding: 10px;
+  font-size: 13px;
+  color: var(--text);
+  border-radius: 4px;
+}
+
+.dropdown button:hover {
+  background: #fff0f1;
+  color: var(--red);
+}
+
+/* BREAKING NEWS */
+
+.breaking {
+  margin: 20px auto;
+  background: white;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+  min-height: 43px;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.breaking-label {
+  background: var(--red);
+  color: white;
+  padding: 10px 15px;
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.breaking-content {
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* SECTION */
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 2px solid var(--red);
+  margin-bottom: 18px;
+}
+
+.section-heading h2 {
+  font-size: 19px;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: var(--red);
+  color: white;
+  padding: 9px 15px;
+}
+
+.section-heading span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* MAIN LAYOUT */
+
+.main-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 28px;
+  align-items: start;
+}
+
+.main-column {
+  min-width: 0;
+}
+
+/* HERO */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 17px;
+  margin-bottom: 28px;
+}
+
+.hero-main {
+  position: relative;
+  min-height: 320px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: linear-gradient(135deg,#263c5b,#101827);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color: white;
+  padding: 22px;
+}
+
+.hero-main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg,rgba(0,0,0,.88),rgba(0,0,0,.04));
+}
+
+.hero-main > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-main h2 {
+  font-size: 24px;
+  line-height: 1.35;
+  margin: 10px 0;
+}
+
+.hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.hero-small {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 15px;
+  flex: 1;
+}
+
+.hero-small h3 {
+  font-size: 15px;
+  line-height: 1.45;
+  margin: 7px 0;
+}
+
+.category-label {
+  display: inline-block;
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.article-time {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+/* NEWS GRID */
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 18px;
+}
+
+.news-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.news-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 20px rgba(0,0,0,.08);
+}
+
+.card-visual {
+  height: 125px;
+  background: linear-gradient(135deg,#233d60,#496a8d);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.7);
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.card-body {
+  padding: 13px;
+}
+
+.card-body h3 {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 7px 0;
+}
+
+.card-body p {
+  color: #697589;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 12px;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  min-width: 0;
+}
+
+.side-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  margin-bottom: 22px;
+  padding: 16px;
+}
+
+.side-title {
+  font-size: 15px;
+  font-weight: 900;
+  text-transform: uppercase;
+  border-left: 4px solid var(--red);
+  padding-left: 10px;
+  margin-bottom: 15px;
+}
+
+.side-list {
+  list-style: none;
+}
+
+.side-list li {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.side-list li:last-child {
+  border-bottom: none;
+}
+
+/* CATEGORY PAGE */
+
+.category-panel {
+  display: none;
+  margin-bottom: 25px;
+  background: white;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+.category-panel.show {
+  display: block;
+}
+
+.category-panel h3 {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.subcategories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.subcategories button {
+  background: #f1f3f6;
+  border: 1px solid #e4e8ef;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #39465a;
+}
+
+.subcategories button:hover,
+.subcategories button.active {
+  background: var(--red);
+  border-color: var(--red);
+  color: white;
+}
+
+/* LOAD MORE */
+
+.load-area {
+  text-align: center;
+  margin: 28px 0;
+}
+
+.load-button {
+  background: var(--dark);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 27px;
+  font-weight: 700;
+}
+
+.load-button:hover {
+  background: var(--red);
+}
+
+/* STATUS */
+
+.status {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 22px;
+  text-align: center;
+  color: var(--muted);
+  border-radius: 5px;
+  margin: 18px 0;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #e5e9ef;
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* FOOTER */
+
+.footer {
+  background: var(--dark);
+  color: #c0cad8;
+  margin-top: 45px;
+  padding: 35px 0 18px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 30px;
+}
+
+.footer h3 {
+  color: white;
+  margin-bottom: 13px;
+  font-size: 15px;
+}
+
+.footer p,
+.footer a {
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.copyright {
+  border-top: 1px solid #344054;
+  margin-top: 25px;
+  padding-top: 16px;
+  text-align: center;
+  font-size: 11px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px) {
+  .main-layout {
+    grid-template-columns: minmax(0,1fr) 260px;
+    gap: 17px;
+  }
+
+  .news-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-side {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media(max-width:650px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+  }
+
+  .logo {
+    font-size: 29px;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .nav-link {
+    padding: 13px 12px;
+    font-size: 12px;
+  }
+
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-main {
+    min-height: 260px;
+  }
+
+  .hero-main h2 {
+    font-size: 20px;
+  }
+
+  .hero-side {
+    grid-template-columns: 1fr;
+  }
+
+  .news-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 10px;
+  }
+
+  .card-visual {
+    height: 95px;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .card-body h3 {
+    font-size: 12px;
+  }
+
+  .card-body p {
+    display: none;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-heading h2 {
+    font-size: 15px;
+  }
 }
 </style>
 </head>
+
 <body>
 
-<div class="top">
-<div class="wrap">
-<span>THETHAO24H · NHỊP ĐẬP THỂ THAO</span>
-<span id="date">Đang cập nhật</span>
-</div>
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span id="currentDate">THETHAO24H - TIN TỨC 24 GIỜ</span>
+    <span>Tin nhanh - Chính xác - Liên tục</span>
+  </div>
 </div>
 
-<header class="mast">
-<div class="wrap">
-<div>
-<div class="logo">THE<span>THAO</span>24H</div>
-<div class="slogan">TIN NHANH · THỂ THAO · TÀI CHÍNH</div>
-</div>
-<form class="search" id="search">
-<input id="q" placeholder="Tìm kiếm tin thể thao...">
-<button>TÌM KIẾM</button>
-</form>
-</div>
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo" onclick="goHome();return false;">
+      THE<span>THAO</span>24H
+      <small>TIN TỨC 24 GIỜ</small>
+    </a>
+
+    <form class="search" id="searchForm">
+      <input id="searchInput" type="search"
+        placeholder="Tìm kiếm tin tức..." autocomplete="off">
+      <button type="submit">TÌM</button>
+    </form>
+  </div>
 </header>
 
 <nav class="nav">
-<div class="wrap" id="mainNav">
-<button class="active" data-parent="home">TẤT CẢ</button>
-<button data-parent="sports">THỂ THAO</button>
-<button data-parent="football">BÓNG ĐÁ</button>
-<button data-parent="news">TIN TỨC</button>
-<button data-parent="finance">TÀI CHÍNH - CHỨNG KHOÁN</button>
-</div>
+  <div class="container nav-inner">
+
+    <div class="nav-item">
+      <button class="nav-link active" data-category="home">
+        TẤT CẢ
+      </button>
+    </div>
+
+    <div class="nav-item">
+      <button class="nav-link" data-category="football">
+        BÓNG ĐÁ ▾
+      </button>
+      <div class="dropdown">
+        <button data-category="vn">Bóng đá Việt Nam</button>
+        <button data-category="epl">Ngoại hạng Anh</button>
+        <button data-category="laliga">La Liga</button>
+        <button data-category="seriea">Serie A</button>
+        <button data-category="bundesliga">Bundesliga</button>
+        <button data-category="ligue1">Ligue 1</button>
+        <button data-category="ucl">Champions League</button>
+        <button data-category="uel">Europa League</button>
+        <button data-category="uecl">Conference League</button>
+        <button data-category="worldcup">World Cup</button>
+        <button data-category="euro">EURO</button>
+        <button data-category="transfer">Chuyển nhượng</button>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <button class="nav-link" data-category="sports">
+        THỂ THAO ▾
+      </button>
+      <div class="dropdown">
+        <button data-category="sports">Tất cả thể thao</button>
+        <button data-category="tennis">Tennis</button>
+        <button data-category="basketball">Bóng rổ</button>
+        <button data-category="badminton">Cầu lông</button>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <button class="nav-link" data-category="news">
+        TIN TỨC ▾
+      </button>
+      <div class="dropdown">
+        <button data-category="news" data-filter="trong nước">Trong nước</button>
+        <button data-category="news" data-filter="thế giới">Thế giới</button>
+        <button data-category="news" data-filter="chính trị">Chính trị</button>
+        <button data-category="news" data-filter="xã hội">Xã hội</button>
+        <button data-category="news" data-filter="pháp luật">Pháp luật</button>
+        <button data-category="news" data-filter="giáo dục">Giáo dục</button>
+        <button data-category="news" data-filter="y tế">Y tế</button>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <button class="nav-link" data-category="finance">
+        TÀI CHÍNH – CHỨNG KHOÁN ▾
+      </button>
+      <div class="dropdown">
+        <button data-category="finance">Tổng hợp tài chính</button>
+        <button data-category="economy">Kinh tế</button>
+        <button data-category="stock">Chứng khoán</button>
+        <button data-category="banking">Ngân hàng</button>
+        <button data-category="realestate">Bất động sản</button>
+      </div>
+    </div>
+
+  </div>
 </nav>
 
-<div class="sub" id="sub">
-<div class="wrap" id="subItems"></div>
-</div>
+<main class="container">
 
-<main class="wrap">
+  <div class="breaking">
+    <div class="breaking-label">TIN MỚI</div>
+    <div class="breaking-content" id="breakingText">
+      Đang cập nhật tin tức mới nhất...
+    </div>
+  </div>
 
-<div class="breaking">
-<b>TIN NÓNG 24H</b>
-<span id="breaking">Đang cập nhật tin mới...</span>
-</div>
+  <section class="category-panel" id="categoryPanel">
+    <h3 id="categoryTitle">CHUYÊN MỤC</h3>
+    <div class="subcategories" id="subcategories"></div>
+  </section>
 
-<div class="heading">
-<h2 id="heroTitle">Tâm điểm thể thao</h2>
-<a href="#latest">XEM TIN MỚI →</a>
-</div>
+  <div class="main-layout">
 
-<section class="hero">
-<div class="heroMain" id="heroMain">
-<div class="caption">
-<span class="tag">TIN TIÊU ĐIỂM</span>
-<h1>THETHAO24H – Nhịp đập thể thao mỗi ngày</h1>
-<p>Tin nóng, diễn biến và câu chuyện thể thao đáng chú ý.</p>
-</div>
-</div>
-<div class="heroSide" id="heroSide">
-<div class="loading">Đang tải tin...</div>
-</div>
-</section>
+    <div class="main-column">
 
-<section class="score">
-<div class="scoreHead">
-<h2>⚽ TỶ SỐ & LỊCH THI ĐẤU</h2>
-<select id="competition">
-<option value="PL">Ngoại hạng Anh</option>
-<option value="CL">Champions League</option>
-<option value="PD">LaLiga</option>
-<option value="SA">Serie A</option>
-<option value="BL1">Bundesliga</option>
-<option value="FL1">Ligue 1</option>
-</select>
-</div>
-<div class="scoreGrid" id="matches">
-<div class="emptyScore">Cần cấu hình API dữ liệu bóng đá để hiển thị kết quả thật.</div>
-</div>
-<div class="status" id="matchStatus">Chưa kết nối API.</div>
-</section>
+      <section>
+        <div class="section-heading">
+          <h2 id="pageTitle">TIN TỨC MỚI NHẤT</h2>
+          <span id="articleCount"></span>
+        </div>
 
-<div class="layout">
-<section id="latest">
-<div class="heading">
-<h2 id="newsTitle">Tin thể thao mới nhất</h2>
-</div>
-<div class="status" id="newsStatus">Đang kết nối nguồn tin...</div>
-<div class="grid" id="newsGrid">
-<div class="loading">Đang tải...</div>
-</div>
-</section>
+        <div id="heroArea">
+          <div class="status">
+            <div class="spinner"></div>
+            Đang tải tin tức...
+          </div>
+        </div>
+      </section>
 
-<aside>
-<div class="box">
-<h3>TIN MỚI ĐÁNG CHÚ Ý</h3>
-<div id="hot"><p class="muted">Đang cập nhật...</p></div>
-</div>
+      <section>
+        <div class="section-heading">
+          <h2 id="listTitle">TIN MỚI CẬP NHẬT</h2>
+          <span>THETHAO24H</span>
+        </div>
 
-<div class="box">
-<h3>BẢNG XẾP HẠNG</h3>
-<select id="standingComp" style="width:100%;padding:9px;margin-bottom:10px">
-<option value="PL">Ngoại hạng Anh</option>
-<option value="CL">Champions League</option>
-<option value="PD">LaLiga</option>
-<option value="SA">Serie A</option>
-<option value="BL1">Bundesliga</option>
-</select>
-<div id="standings"><p class="muted">Cần cấu hình API.</p></div>
-<div class="status" id="standingStatus"></div>
-</div>
+        <div id="newsGrid" class="news-grid"></div>
 
-<div class="box">
-<h3>VỀ THETHAO24H</h3>
-<p class="muted">Trang tin tổng hợp thể thao, bóng đá, thời sự, tài chính và chứng khoán trong nước, quốc tế. Bài viết dẫn về nguồn xuất bản tương ứng.</p>
-</div>
-</aside>
-</div>
+        <div class="load-area">
+          <button class="load-button" id="loadMore">
+            XEM THÊM TIN TỨC
+          </button>
+        </div>
+      </section>
 
-<section class="panel">
-<div class="heading">
-<h2 id="panelTitle">Khám phá chuyên mục</h2>
-</div>
-<div class="grid" id="panelNews">
-<div class="loading">Tin theo chuyên mục sẽ xuất hiện tại đây.</div>
-</div>
-</section>
+    </div>
+
+    <aside class="sidebar">
+
+      <div class="side-box">
+        <div class="side-title">TIN ĐÁNG CHÚ Ý</div>
+        <ul class="side-list" id="popularList">
+          <li>Đang cập nhật...</li>
+        </ul>
+      </div>
+
+      <div class="side-box">
+        <div class="side-title">CHUYÊN MỤC</div>
+        <ul class="side-list">
+          <li><a href="#" data-category="football">Bóng đá</a></li>
+          <li><a href="#" data-category="sports">Thể thao</a></li>
+          <li><a href="#" data-category="news">Tin tức</a></li>
+          <li><a href="#" data-category="finance">Tài chính - Chứng khoán</a></li>
+        </ul>
+      </div>
+
+      <div class="side-box">
+        <div class="side-title">GIỚI THIỆU</div>
+        <p style="font-size:13px;color:#687589">
+          THETHAO24H cập nhật tin tức mới nhất về bóng đá, thể thao,
+          thời sự, kinh tế và tài chính trong nước và quốc tế.
+        </p>
+      </div>
+
+    </aside>
+
+  </div>
 </main>
 
-<footer>
-<div class="wrap">
-<div class="foot">
-<div>
-<div class="logo" style="color:white">THETHAO24H</div>
-<p>Tin thể thao, bóng đá, thời sự, tài chính và chứng khoán trong nước, quốc tế. Cập nhật nhanh, trình bày rõ ràng và dẫn nguồn bài viết.</p>
-</div>
-<div>
-<b>THÔNG TIN</b>
-<p>Ảnh và nội dung được lấy từ nguồn RSS khi nguồn cung cấp. Quyền sở hữu thuộc đơn vị xuất bản tương ứng.</p>
-</div>
-</div>
-<div class="copy">© 2026 THETHAO24H. All rights reserved.</div>
-</div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div>
+        <h3 style="font-size:25px">
+          THE<span style="color:#e32636">THAO</span>24H
+        </h3>
+        <p>
+          Trang tin tức cập nhật liên tục 24 giờ.
+          Mang đến thông tin nhanh chóng về bóng đá,
+          thể thao, thời sự và tài chính.
+        </p>
+      </div>
+
+      <div>
+        <h3>CHUYÊN MỤC</h3>
+        <div class="footer-links">
+          <a href="#" data-category="football">Bóng đá</a>
+          <a href="#" data-category="sports">Thể thao</a>
+          <a href="#" data-category="news">Tin tức</a>
+          <a href="#" data-category="finance">Tài chính</a>
+        </div>
+      </div>
+
+      <div>
+        <h3>THETHAO24H</h3>
+        <p>Tin nhanh - Chính xác - Liên tục</p>
+        <p>Cập nhật tin tức mỗi ngày.</p>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      © <span id="year"></span> THETHAO24H. All rights reserved.
+    </div>
+  </div>
 </footer>
 
 <script>
-const API="https://api.football-data.org/v4";
-const API_KEY="";
+"use strict";
 
-const C={
-football:{p:"football",n:"Tất cả bóng đá"},
-vietnam:{p:"football",n:"Bóng đá Việt Nam"},
-epl:{p:"football",n:"Ngoại hạng Anh"},
-laliga:{p:"football",n:"La Liga"},
-seriea:{p:"football",n:"Serie A"},
-bundesliga:{p:"football",n:"Bundesliga"},
-ligue1:{p:"football",n:"Ligue 1"},
-ucl:{p:"football",n:"Champions League – Cúp C1"},
-uel:{p:"football",n:"Europa League – Cúp C2"},
-uecl:{p:"football",n:"Conference League – Cúp C3"},
-worldcup:{p:"football",n:"World Cup"},
-euro:{p:"football",n:"EURO"},
-national:{p:"football",n:"Đội tuyển quốc gia"},
-transfer:{p:"football",n:"Chuyển nhượng"},
-fixtures:{p:"football",n:"Lịch thi đấu"},
-results:{p:"football",n:"Kết quả bóng đá"},
-standings:{p:"football",n:"Bảng xếp hạng"},
-volleyball:{p:"sports",n:"Bóng chuyền"},
-basketball:{p:"sports",n:"Bóng rổ"},
-tennis:{p:"sports",n:"Tennis"},
-badminton:{p:"sports",n:"Cầu lông"},
-athletics:{p:"sports",n:"Điền kinh"},
-f1:{p:"sports",n:"Đua xe F1"},
-boxing:{p:"sports",n:"Boxing"},
-nba:{p:"sports",n:"NBA"},
-olympics:{p:"sports",n:"Olympics"},
-esports:{p:"sports",n:"Thể thao điện tử"},
-othersports:{p:"sports",n:"Các môn thể thao khác"},
-newsvn:{p:"news",n:"Tin trong nước"},
-newsworld:{p:"news",n:"Tin thế giới"},
-politics:{p:"news",n:"Chính trị – Xã hội"},
-economy:{p:"news",n:"Kinh tế"},
-law:{p:"news",n:"Pháp luật"},
-education:{p:"news",n:"Giáo dục"},
-life:{p:"news",n:"Đời sống"},
-finance:{p:"finance",n:"Tài chính"},
-stocks:{p:"finance",n:"Chứng khoán"},
-banking:{p:"finance",n:"Ngân hàng"},
-business:{p:"finance",n:"Doanh nghiệp"},
-markets:{p:"finance",n:"Thị trường"}
+/* =========================
+   CẤU HÌNH API
+========================= */
+
+const API_URL = "/api/news";
+
+const CATEGORY_NAMES = {
+  home: "TẤT CẢ TIN TỨC",
+  football: "BÓNG ĐÁ",
+  sports: "THỂ THAO",
+  news: "TIN TỨC",
+  finance: "TÀI CHÍNH – CHỨNG KHOÁN",
+  vn: "BÓNG ĐÁ VIỆT NAM",
+  epl: "NGOẠI HẠNG ANH",
+  laliga: "LA LIGA",
+  seriea: "SERIE A",
+  bundesliga: "BUNDESLIGA",
+  ligue1: "LIGUE 1",
+  ucl: "CHAMPIONS LEAGUE",
+  uel: "EUROPA LEAGUE",
+  uecl: "CONFERENCE LEAGUE",
+  worldcup: "WORLD CUP",
+  euro: "EURO",
+  transfer: "CHUYỂN NHƯỢNG",
+  tennis: "TENNIS",
+  basketball: "BÓNG RỔ",
+  badminton: "CẦU LÔNG",
+  economy: "KINH TẾ",
+  stock: "CHỨNG KHOÁN",
+  banking: "NGÂN HÀNG",
+  realestate: "BẤT ĐỘNG SẢN"
 };
 
-const MENUS={
-sports:["sportsall","volleyball","basketball","tennis","badminton","athletics","f1","boxing","nba","olympics","esports","othersports"],
-football:["football","vietnam","epl","laliga","seriea","bundesliga","ligue1","ucl","uel","uecl","worldcup","euro","national","transfer","fixtures","results","standings"],
-news:["newsall","newsvn","newsworld","politics","economy","law","education","life"],
-finance:["financeall","finance","stocks","banking","business","markets"]
+/* Các mục dùng chung API cha sẽ lọc bằng từ khóa */
+
+const CATEGORY_FILTERS = {
+  news: {
+    "trong nước": ["việt nam", "trong nước"],
+    "thế giới": ["thế giới", "quốc tế"],
+    "chính trị": ["chính trị", "quốc hội", "chính phủ"],
+    "xã hội": ["xã hội", "đời sống"],
+    "pháp luật": ["pháp luật", "công an", "tòa án"],
+    "giáo dục": ["giáo dục", "trường học"],
+    "y tế": ["y tế", "bệnh viện", "sức khỏe"]
+  }
 };
 
-const PNAME={
-home:"Tất cả tin mới nhất",
-sports:"Thể thao",
-football:"Bóng đá",
-news:"Tin tức",
-finance:"Tài chính – chứng khoán"
+const CATEGORY_ICONS = {
+  home: "24H",
+  football: "BĐ",
+  sports: "TT",
+  news: "NEWS",
+  finance: "TC",
+  vn: "VN",
+  epl: "EPL",
+  laliga: "LL",
+  seriea: "SA",
+  bundesliga: "BL",
+  ligue1: "L1",
+  ucl: "C1",
+  uel: "C2",
+  uecl: "C3",
+  worldcup: "WC",
+  euro: "EURO",
+  transfer: "NEWS",
+  tennis: "TENNIS",
+  basketball: "NBA",
+  badminton: "TT",
+  economy: "KT",
+  stock: "CK",
+  banking: "NH",
+  realestate: "BĐS"
 };
 
-const GROUPS={
-sportsall:"sports",
-newsall:"news",
-financeall:"finance"
-};
+/* =========================
+   TRẠNG THÁI
+========================= */
 
-let data=[],cat="all",parent="home",keyword="";
-const cache=new Map();
-const $=id=>document.getElementById(id);
+let currentCategory = "home";
+let currentFilter = "";
+let allArticles = [];
+let displayedArticles = [];
+let visibleCount = 12;
+let currentSearch = "";
+let requestNumber = 0;
 
-const esc=s=>String(s||"").replace(/[&<>"']/g,c=>({
-"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-}[c]));
+const $ = id => document.getElementById(id);
 
-function safe(s){
-try{
-const u=new URL(s);
-return /^https?:$/.test(u.protocol)?u.href:"";
-}catch(e){return ""}
+function normalizeText(text) {
+  return String(text || "")
+    .toLocaleLowerCase("vi")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d");
 }
 
-function text(s){
-const d=new DOMParser().parseFromString(s||"","text/html");
-return(d.body.textContent||"").replace(/\s+/g," ").trim();
+function escapeHTML(text) {
+  return String(text || "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
 }
 
-function label(id){
-return C[id]?.n||({
-all:"Tất cả",
-sportsall:"Tất cả thể thao",
-newsall:"Tất cả tin tức",
-financeall:"Tất cả tài chính – chứng khoán"
-}[id]||"Thể thao");
+function formatDate(dateValue) {
+  const date = new Date(dateValue);
+
+  if (isNaN(date.getTime())) return "";
+
+  return date.toLocaleString("vi-VN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
 }
 
-function fallback(id){
-const p=C[id]?.p||GROUPS[id]||"football";
-const icons={football:"⚽",sports:"🏅",news:"📰",finance:"📈"};
-const colors={
-football:["#182235","#e21d2b"],
-sports:["#16434a","#e5b83b"],
-news:["#243047","#56a5d8"],
-finance:["#183b32","#35b779"]
-};
-const c=colors[p]||colors.football;
-const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="900" height="550">
-<defs><linearGradient id="g"><stop stop-color="${c[0]}"/><stop offset="1" stop-color="#080a0e"/></linearGradient></defs>
-<rect width="900" height="550" fill="url(#g)"/>
-<circle cx="730" cy="100" r="230" fill="${c[1]}" opacity=".22"/>
-<text x="450" y="310" text-anchor="middle" font-size="145" fill="white">${icons[p]||"🏆"}</text>
-<text x="450" y="490" text-anchor="middle" font-family="Arial" font-size="27" fill="white">${esc(label(id)).toUpperCase()}</text>
-</svg>`;
-return "data:image/svg+xml;charset=UTF-8,"+encodeURIComponent(svg);
+function articleDate(article) {
+  return article.timestamp
+    ? formatDate(article.timestamp)
+    : formatDate(article.pubDate);
 }
 
-function img(src,title,id){
-return `<img src="${safe(src)||fallback(id)}" alt="${esc(title)}" loading="lazy" onerror="this.onerror=null;this.src='${fallback(id)}'">`;
+/* =========================
+   LẤY DỮ LIỆU API
+========================= */
+
+async function loadNews(category) {
+  const thisRequest = ++requestNumber;
+
+  $("heroArea").innerHTML =
+    '<div class="status"><div class="spinner"></div>Đang tải tin tức...</div>';
+
+  $("newsGrid").innerHTML = "";
+
+  try {
+    const url = `${API_URL}?category=${encodeURIComponent(category)}&limit=100`;
+
+    const response = await fetch(url, {
+      method: "GET",
+      headers: { "Accept": "application/json" },
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error(`API lỗi HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (thisRequest !== requestNumber) return;
+
+    if (!data.success || !Array.isArray(data.articles)) {
+      throw new Error(data.warning || data.error || "API không trả về tin tức");
+    }
+
+    allArticles = data.articles;
+
+    renderArticles();
+
+    $("articleCount").textContent =
+      `${allArticles.length} tin`;
+
+  } catch (error) {
+    if (thisRequest !== requestNumber) return;
+
+    console.error("THETHAO24H API:", error);
+
+    $("heroArea").innerHTML = `
+      <div class="status">
+        <strong>Không thể tải tin tức</strong>
+        <p>${escapeHTML(error.message)}</p>
+        <button class="load-button" onclick="loadNews(currentCategory)">
+          THỬ LẠI
+        </button>
+      </div>`;
+
+    $("newsGrid").innerHTML = "";
+    $("articleCount").textContent = "Lỗi tải dữ liệu";
+  }
 }
 
-function date(v){
-const d=new Date(v);
-return !v||isNaN(d)?"Mới cập nhật":d.toLocaleString("vi-VN");
+/* =========================
+   LỌC VÀ TÌM KIẾM
+========================= */
+
+function filterArticles() {
+  let articles = [...allArticles];
+
+  if (currentFilter) {
+    const terms = currentFilter.split("|").map(normalizeText);
+
+    articles = articles.filter(article => {
+      const content = normalizeText(
+        `${article.title} ${article.description} ${article.source}`
+      );
+
+      return terms.some(term => content.includes(term));
+    });
+  }
+
+  if (currentSearch) {
+    const search = normalizeText(currentSearch);
+
+    articles = articles.filter(article => {
+      const content = normalizeText(
+        `${article.title} ${article.description} ${article.source}`
+      );
+
+      return content.includes(search);
+    });
+  }
+
+  return articles;
 }
 
-function setStatus(s){
-$("newsStatus").textContent=s;
+/* =========================
+   HIỂN THỊ TIN TỨC
+========================= */
+
+function renderArticles() {
+  displayedArticles = filterArticles();
+  visibleCount = 12;
+
+  const articles = displayedArticles;
+
+  if (!articles.length) {
+    $("heroArea").innerHTML = `
+      <div class="status">
+        Không tìm thấy tin phù hợp.
+        <p>Hãy thử từ khóa khác hoặc chọn chuyên mục khác.</p>
+      </div>`;
+
+    $("newsGrid").innerHTML = "";
+    $("popularList").innerHTML = "<li>Chưa có tin phù hợp.</li>";
+    $("breakingText").textContent = "Chưa có tin tức phù hợp.";
+    $("loadMore").style.display = "none";
+    return;
+  }
+
+  renderHero(articles);
+  renderGrid();
+  renderSidebar(articles);
+  renderBreaking(articles);
+
+  $("articleCount").textContent = `${articles.length} tin`;
 }
 
-async function loadIds(ids){
-const key=cat==="all"
-?(parent==="home"?"home":parent)
-:(GROUPS[cat]||cat);
+function renderHero(articles) {
+  const main = articles[0];
+  const side = articles.slice(1, 4);
 
-if(cache.has(key)){
-merge(cache.get(key));
-render();
-return;
+  $("heroArea").innerHTML = `
+    <div class="hero">
+
+      <a class="hero-main" href="${safeUrl(main.link)}"
+         target="_blank" rel="noopener noreferrer">
+
+        <span class="category-label" style="color:#ffb6bd">
+          ${escapeHTML(CATEGORY_NAMES[currentCategory] || "TIN TỨC")}
+        </span>
+
+        <h2>${escapeHTML(main.title)}</h2>
+
+        <div class="article-time">
+          ${escapeHTML(main.source || "Tin tức")} ·
+          ${escapeHTML(articleDate(main))}
+        </div>
+      </a>
+
+      <div class="hero-side">
+        ${side.map(article => `
+          <a class="hero-small" href="${safeUrl(article.link)}"
+             target="_blank" rel="noopener noreferrer">
+            <span class="category-label">
+              ${escapeHTML(article.source || "TIN TỨC")}
+            </span>
+            <h3>${escapeHTML(article.title)}</h3>
+            <div class="article-time">
+              ${escapeHTML(articleDate(article))}
+            </div>
+          </a>
+        `).join("")}
+      </div>
+
+    </div>
+  `;
 }
 
-setStatus("Đang tải tin từ hệ thống THETHAO24H...");
+function renderGrid() {
+  const articles = displayedArticles.slice(4, visibleCount + 4);
 
-try{
-const response=await fetch("/api/news?category="+encodeURIComponent(key),{
-headers:{"Accept":"application/json"}
+  $("newsGrid").innerHTML = articles.map(article => `
+    <article class="news-card">
+
+      <a href="${safeUrl(article.link)}"
+         target="_blank" rel="noopener noreferrer">
+
+        <div class="card-visual">
+          ${escapeHTML(CATEGORY_ICONS[currentCategory] || "NEWS")}
+        </div>
+
+        <div class="card-body">
+
+          <span class="category-label">
+            ${escapeHTML(article.source || "TIN TỨC")}
+          </span>
+
+          <h3>${escapeHTML(article.title)}</h3>
+
+          <p>${escapeHTML(stripDescription(article.description))}</p>
+
+          <div class="card-footer">
+            <span>${escapeHTML(articleDate(article))}</span>
+            <span>Đọc tin ↗</span>
+          </div>
+
+        </div>
+      </a>
+    </article>
+  `).join("");
+
+  const hasMore = visibleCount + 4 < displayedArticles.length;
+
+  $("loadMore").style.display = hasMore ? "inline-block" : "none";
+}
+
+function renderSidebar(articles) {
+  $("popularList").innerHTML = articles.slice(0, 7).map(article => `
+    <li>
+      <a href="${safeUrl(article.link)}"
+         target="_blank" rel="noopener noreferrer">
+        ${escapeHTML(article.title)}
+      </a>
+    </li>
+  `).join("");
+}
+
+function renderBreaking(articles) {
+  $("breakingText").textContent =
+    articles.slice(0, 5).map(a => a.title).join("  •  ");
+}
+
+function stripDescription(value) {
+  const temp = document.createElement("div");
+  temp.innerHTML = String(value || "");
+  return temp.textContent || temp.innerText || "";
+}
+
+function safeUrl(value) {
+  try {
+    const url = new URL(value);
+    if (url.protocol === "https:" || url.protocol === "http:") {
+      return escapeHTML(url.href);
+    }
+  } catch (error) {}
+  return "#";
+}
+
+/* =========================
+   ĐIỀU HƯỚNG CHUYÊN MỤC
+========================= */
+
+function setActiveNavigation(category) {
+  document.querySelectorAll(".nav-link").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.category === category
+    );
+  });
+}
+
+function setCategory(category, filter = "") {
+  if (!CATEGORY_NAMES[category]) return;
+
+  currentCategory = category;
+  currentFilter = filter;
+  currentSearch = "";
+  $("searchInput").value = "";
+
+  setActiveNavigation(category);
+
+  $("pageTitle").textContent =
+    filter
+      ? filter.toUpperCase()
+      : CATEGORY_NAMES[category];
+
+  $("listTitle").textContent =
+    filter
+      ? `TIN ${filter.toUpperCase()}`
+      : "TIN MỚI CẬP NHẬT";
+
+  const isSubcategory = [
+    "vn","epl","laliga","seriea","bundesliga","ligue1",
+    "ucl","uel","uecl","worldcup","euro","transfer",
+    "tennis","basketball","badminton",
+    "economy","stock","banking","realestate"
+  ].includes(category);
+
+  const parentCategory = {
+    vn:"football", epl:"football", laliga:"football",
+    seriea:"football", bundesliga:"football", ligue1:"football",
+    ucl:"football", uel:"football", uecl:"football",
+    worldcup:"football", euro:"football", transfer:"football",
+    tennis:"sports", basketball:"sports", badminton:"sports",
+    economy:"finance", stock:"finance", banking:"finance",
+    realestate:"finance"
+  };
+
+  const parent = parentCategory[category];
+
+  if (parent) {
+    currentCategory = category;
+    currentFilter = "";
+    $("pageTitle").textContent = CATEGORY_NAMES[category];
+    $("listTitle").textContent = "TIN MỚI CẬP NHẬT";
+    setActiveNavigation(parent);
+  }
+
+  $("categoryPanel").classList.remove("show");
+
+  loadNews(category);
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* =========================
+   SỰ KIỆN CLICK MENU
+========================= */
+
+document.querySelectorAll("[data-category]").forEach(button => {
+  button.addEventListener("click", event => {
+    event.preventDefault();
+
+    const category = button.dataset.category;
+    const filter = button.dataset.filter || "";
+
+    setCategory(category, filter);
+  });
 });
 
-if(!response.ok)throw new Error("API tin tức trả về HTTP "+response.status);
+/* =========================
+   TÌM KIẾM
+========================= */
 
-const result=await response.json();
+$("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
 
-if(!Array.isArray(result.items)){
-throw new Error("Dữ liệu API không đúng định dạng");
-}
+  currentSearch = $("searchInput").value.trim();
+  currentFilter = "";
 
-cache.set(key,result.items);
-merge(result.items);
+  $("pageTitle").textContent = currentSearch
+    ? `KẾT QUẢ TÌM KIẾM: ${currentSearch}`
+    : "TIN TỨC MỚI NHẤT";
 
-const failed=Number(result.failed||0);
+  $("listTitle").textContent = "KẾT QUẢ TÌM KIẾM";
 
-setStatus("Đã cập nhật "+result.items.length+" tin"+
-(failed?" · "+failed+" nguồn tạm thời chưa phản hồi":"")+
-(result.cached?" · dữ liệu lưu dự phòng":"")+".");
-}catch(error){
-setStatus("Không tải được tin mới: "+error.message);
-if(!data.length){
-$("newsGrid").innerHTML='<div class="empty">Chưa kết nối được máy chủ tin tức. Vui lòng thử tải lại sau.</div>';
-}
-}
-}
+  renderArticles();
 
-function merge(items){
-const map=new Map(data.map(x=>[x.link,x]));
-items.forEach(x=>{
-if(x.title&&x.link&&!map.has(x.link))map.set(x.link,x);
-});
-data=[...map.values()].sort((a,b)=>new Date(b.date||0)-new Date(a.date||0));
-}
-
-function idsForSelection(){
-if(cat==="all"){
-if(parent==="home")return Object.keys(C);
-return Object.keys(C).filter(id=>C[id].p===parent);
-}
-if(GROUPS[cat]){
-return Object.keys(C).filter(id=>C[id].p===GROUPS[cat]);
-}
-if(cat==="football"){
-return Object.keys(C).filter(id=>C[id].p==="football");
-}
-return C[cat]?[cat]:[];
-}
-
-function drawSub(p){
-const box=$("sub");
-if(!MENUS[p]){
-box.classList.remove("show");
-$("subItems").innerHTML="";
-return;
-}
-box.classList.add("show");
-$("subItems").innerHTML=MENUS[p].map(id=>
-`<button data-cat="${id}" class="${cat===id?"active":""}">${esc(label(id))}</button>`
-).join("");
-
-$("subItems").querySelectorAll("button").forEach(b=>{
-b.onclick=()=>choose(b.dataset.cat,p);
-});
-}
-
-function headings(){
-const name=cat==="all"?(PNAME[parent]||"Tin mới nhất"):label(cat);
-$("newsTitle").textContent=cat==="all"
-?(parent==="home"?"Tin mới nhất":"Tin mới: "+name):label(cat);
-$("heroTitle").textContent=cat==="all"
-?(parent==="home"?"Tâm điểm hôm nay":name):label(cat);
-$("panelTitle").textContent=cat==="all"
-?"Khám phá chuyên mục":"Tin mới: "+label(cat);
-}
-
-function filtered(){
-let group=GROUPS[cat]||((cat==="football")?"football":null);
-if(cat==="all"&&parent!=="home")group=parent;
-
-return data.filter(x=>
-(cat==="all"
-?(parent==="home"||x.parent===group)
-:x.category===cat||(group&&x.parent===group)
-)&&(!keyword||(x.title+" "+x.description).toLowerCase().includes(keyword))
-);
-}
-
-function card(x){
-return `<article class="card">
-<a href="${x.link}" target="_blank" rel="noopener">${img(x.image,x.title,x.category)}</a>
-<div class="body">
-<div class="cat">${esc(label(x.category))} · ${esc(x.source||"")}</div>
-<h3><a href="${x.link}" target="_blank" rel="noopener">${esc(x.title)}</a></h3>
-<p>${esc((x.description||"").slice(0,150))}${(x.description||"").length>150?"…":""}</p>
-<div class="meta">${esc(date(x.date))}</div>
-</div>
-</article>`;
-}
-
-function hero(){
-const a=filtered();
-
-if(!a.length){
-$("heroMain").innerHTML=`<div class="caption">
-<span class="tag">${esc(label(cat))}</span>
-<h1>Chưa có tin trong chuyên mục này</h1>
-<p>Hãy thử tải lại sau ít phút.</p>
-</div>`;
-$("heroSide").innerHTML="";
-return;
-}
-
-const x=a[0];
-
-$("heroMain").innerHTML=`<a href="${x.link}" target="_blank" rel="noopener">
-${img(x.image,x.title,x.category)}
-<div class="caption">
-<span class="tag">${esc(label(x.category))}</span>
-<h1>${esc(x.title)}</h1>
-<p>${esc((x.description||"").slice(0,180))}</p>
-</div>
-</a>`;
-
-$("heroSide").innerHTML=a.slice(1,5).map(x=>
-`<article class="side">
-<a href="${x.link}" target="_blank" rel="noopener">${img(x.image,x.title,x.category)}</a>
-<div><small>${esc(label(x.category))}</small>
-<h3><a href="${x.link}" target="_blank" rel="noopener">${esc(x.title)}</a></h3>
-</div>
-</article>`
-).join("");
-}
-
-function hot(){
-const a=[...data].slice(0,7);
-$("hot").innerHTML=a.map((x,i)=>
-`<a class="hot" href="${x.link}" target="_blank" rel="noopener">
-<strong>0${i+1}</strong>
-<div><h4>${esc(x.title)}</h4><small>${esc(label(x.category))}</small></div>
-</a>`
-).join("")||'<p class="muted">Chưa có tin.</p>';
-}
-
-function render(){
-const a=filtered();
-
-$("newsGrid").innerHTML=a.length
-?a.slice(0,24).map(card).join("")
-:'<div class="empty">Chưa có tin trong chuyên mục này.</div>';
-
-$("panelNews").innerHTML=a.length
-?a.slice(0,4).map(card).join("")
-:'<div class="empty">Tin theo chuyên mục sẽ xuất hiện tại đây.</div>';
-
-hero();
-hot();
-
-if(a.length){
-$("breaking").textContent=a[0].title;
-}
-}
-
-async function chooseParent(p){
-parent=p;
-cat="all";
-
-document.querySelectorAll("[data-parent]").forEach(b=>
-b.classList.toggle("active",b.dataset.parent===p)
-);
-
-drawSub(p);
-headings();
-render();
-
-await loadIds(idsForSelection());
-
-headings();
-render();
-$("latest").scrollIntoView({behavior:"smooth"});
-}
-
-async function choose(id,p){
-cat=id;
-parent=p;
-
-document.querySelectorAll("[data-parent]").forEach(b=>
-b.classList.toggle("active",b.dataset.parent===p)
-);
-
-drawSub(p);
-headings();
-render();
-
-await loadIds(idsForSelection());
-
-render();
-$("latest").scrollIntoView({behavior:"smooth"});
-}
-
-$("mainNav").querySelectorAll("button").forEach(b=>{
-b.onclick=()=>chooseParent(b.dataset.parent);
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-$("search").onsubmit=e=>{
-e.preventDefault();
-keyword=$("q").value.trim().toLowerCase();
-render();
-$("latest").scrollIntoView({behavior:"smooth"});
-};
+/* =========================
+   XEM THÊM
+========================= */
 
-$("q").oninput=()=>{
-keyword=$("q").value.trim().toLowerCase();
-render();
-};
-
-async function api(path){
-const r=await fetch(API+path,{
-headers:{"X-Auth-Token":API_KEY}
-});
-if(!r.ok)throw Error("API "+r.status);
-return r.json();
-}
-
-async function matches(){
-if(!API_KEY){
-$("matches").innerHTML='<div class="emptyScore">Chưa cấu hình API tỷ số. Trang không hiển thị dữ liệu trận đấu giả.</div>';
-$("matchStatus").textContent="Đang chờ cấu hình API.";
-return;
-}
-
-try{
-const d=await api(`/competitions/${$("competition").value}/matches?status=SCHEDULED,LIVE,IN_PLAY,PAUSED,FINISHED`);
-
-$("matches").innerHTML=(d.matches||[]).slice(0,9).map(m=>{
-const s=m.score?.fullTime;
-const h=m.homeTeam?.shortName||m.homeTeam?.name;
-const a=m.awayTeam?.shortName||m.awayTeam?.name;
-
-return `<div class="match">
-<small>${esc(m.competition?.name||"Bóng đá")}</small>
-<div class="teams">
-<span>${esc(h)}</span>
-<b class="val">${s?`${s.home??"-"} : ${s.away??"-"}`:"VS"}</b>
-<span>${esc(a)}</span>
-</div>
-<time>${m.status==="FINISHED"?"ĐÃ KẾT THÚC":date(m.utcDate)}</time>
-</div>`;
-}).join("")||'<div class="emptyScore">Không có trận đấu trong dữ liệu trả về.</div>';
-
-$("matchStatus").textContent="Nguồn: football-data.org.";
-}catch(e){
-$("matches").innerHTML='<div class="emptyScore">Không tải được dữ liệu; kiểm tra token và quyền giải đấu.</div>';
-$("matchStatus").textContent=e.message;
-}
-}
-
-async function standings(){
-if(!API_KEY){
-$("standings").innerHTML='<p class="muted">Chưa kết nối API bảng xếp hạng.</p>';
-return;
-}
-
-try{
-const d=await api(`/competitions/${$("standingComp").value}/standings`);
-const t=d.standings?.find(x=>x.type==="TOTAL")?.table||[];
-
-$("standings").innerHTML=t.length
-?`<table class="standings">
-<thead><tr><th>HẠNG</th><th>ĐỘI</th><th>Đ</th><th>HS</th><th>ĐIỂM</th></tr></thead>
-<tbody>${t.map(x=>`<tr>
-<td>${x.position}</td>
-<td>${esc(x.team.shortName||x.team.name)}</td>
-<td>${x.playedGames}</td>
-<td>${x.goalDifference}</td>
-<td><b>${x.points}</b></td>
-</tr>`).join("")}</tbody></table>`
-:'<p class="muted">Nguồn chưa có bảng xếp hạng.</p>';
-}catch(e){
-$("standings").innerHTML='<p class="muted">Không tải được bảng xếp hạng. Kiểm tra API.</p>';
-$("standingStatus").textContent=e.message;
-}
-}
-
-$("competition").onchange=matches;
-$("standingComp").onchange=standings;
-
-$("date").textContent=new Date().toLocaleDateString("vi-VN",{
-weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"
+$("loadMore").addEventListener("click", () => {
+  visibleCount += 12;
+  renderGrid();
 });
 
-// Trang chủ gọi API trung gian Vercel.
-chooseParent("home");
-matches();
-standings();
+/* =========================
+   TRANG CHỦ
+========================= */
 
-setInterval(()=>{
-cache.clear();
-loadIds(idsForSelection()).then(render);
-},15*60*1000);
+function goHome() {
+  setCategory("home");
+}
+
+/* =========================
+   NGÀY THÁNG
+========================= */
+
+$("currentDate").textContent =
+  new Date().toLocaleDateString("vi-VN", {
+    weekday: "long",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric"
+  });
+
+$("year").textContent = new Date().getFullYear();
+
+/* =========================
+   KHỞI ĐỘNG WEBSITE
+========================= */
+
+loadNews("home");
 
 </script>
+
 </body>
 </html>
