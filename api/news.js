@@ -186,6 +186,7 @@ async function saveToSupabase(articles) {
   let saved = 0;
   let skipped = 0;
   let failed = 0;
+  let errors = [];
 
   for (const article of articles) {
     try {
@@ -253,13 +254,28 @@ async function saveToSupabase(articles) {
       }
 
       saved++;
-    } catch (error) {
+       } catch (error) {
       failed++;
-      console.error("Supabase save error:", error.message);
+
+      console.error("Supabase save error:", {
+        title: article.title,
+        link: article.link,
+        error: error.message
+      });
+
+      errors.push({
+        title: article.title,
+        error: error.message
+      });
     }
   }
 
-  return { saved, skipped, failed };
+    return {
+    saved,
+    skipped,
+    failed,
+    errors: errors.slice(0, 5)
+  };
 }
 
 export default async function handler(req, res) {
