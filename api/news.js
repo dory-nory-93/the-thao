@@ -200,10 +200,9 @@ async function saveToSupabase(articles) {
       checkUrl.searchParams.set("limit", "1");
 
       const headers = {
-        "apikey": supabaseKey,
-        "Authorization": `Bearer ${supabaseKey}`,
-        "Content-Type": "application/json"
-      };
+  "apikey": supabaseKey,
+  "Content-Type": "application/json"
+};
 
       const checkResponse = await fetch(checkUrl, {
         method: "GET",
